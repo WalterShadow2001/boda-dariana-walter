@@ -1,0 +1,25 @@
+{
+  "name": "Dariana & Walter - Nuestra Boda",
+  "short_name": "Nuestra Boda",
+  "description": "Organiza y gestiona los proyectos de nuestra boda - Dariana de la Rocha & Walter Piñera",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFEF7",
+  "theme_color": "#D4A5A5",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["lifestyle", "finance"],
+  "lang": "es"
+}
