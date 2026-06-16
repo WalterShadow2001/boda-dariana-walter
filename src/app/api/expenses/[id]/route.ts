@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { turso } from '@/lib/turso'
 import { NextResponse } from 'next/server'
 
 // PUT - Actualizar gasto
@@ -7,25 +7,26 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = await createClient()
     const body = await request.json()
     const { id } = await params
-    
-    const { concept, amount, notes } = body
+    const { concept, amount, notes, quantity } = body
 
-    const { data: expense, error } = await supabase
-      .from('expenses')
-      .update({ concept, amount, notes })
-      .eq('id', id)
-      .select()
-      .single()
+    await turso.execute({
+      sql: `UPDATE expenses SET concept = ?, amount = ?, notes = ?, quantity = ? WHERE id = ?`,
+      args: [concept, amount, notes || '', quantity || 1, id]
+    })
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
+    const expense = {
+      id,
+      concept,
+      amount: Number(amount),
+      notes: notes || '',
+      quantity: quantity || 1,
     }
 
     return NextResponse.json({ expense })
   } catch (error) {
+    console.error('Error updating expense:', error)
     return NextResponse.json({ error: 'Error interno' }, { status: 500 })
   }
 }
@@ -36,20 +37,16 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = await createClient()
     const { id } = await params
 
-    const { error } = await supabase
-      .from('expenses')
-      .delete()
-      .eq('id', id)
-
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
+    await turso.execute({
+      sql: 'DELETE FROM expenses WHERE id = ?',
+      args: [id]
+    })
 
     return NextResponse.json({ success: true })
   } catch (error) {
+    console.error('Error deleting expense:', error)
     return NextResponse.json({ error: 'Error interno' }, { status: 500 })
   }
 }

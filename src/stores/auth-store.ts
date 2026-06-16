@@ -5,7 +5,7 @@ interface AuthStore {
   isAuthenticated: boolean
   isLoading: boolean
   
-  // Login with password (localStorage first, Supabase optional)
+  // Login with password (localStorage first, server sync optional)
   login: (password: string) => Promise<boolean>
   
   // Logout
@@ -32,7 +32,7 @@ export const useAuthStore = create<AuthStore>()(
         // Set authenticated locally immediately
         set({ isAuthenticated: true })
         
-        // Try to sync with Supabase in background (optional)
+        // Try to sync with server in background (optional)
         try {
           await fetch('/api/auth', {
             method: 'POST',
@@ -40,8 +40,8 @@ export const useAuthStore = create<AuthStore>()(
             body: JSON.stringify({ password })
           })
         } catch (error) {
-          // Ignore Supabase errors - local auth is enough
-          console.log('Supabase sync optional, continuing with local auth')
+          // Ignore server errors - local auth is enough
+          console.log('Server sync optional, continuing with local auth')
         }
         
         return true
@@ -50,11 +50,11 @@ export const useAuthStore = create<AuthStore>()(
       logout: async () => {
         set({ isAuthenticated: false })
         
-        // Try to sync with Supabase (optional)
+        // Try to sync with server (optional)
         try {
           await fetch('/api/auth', { method: 'DELETE' })
         } catch (error) {
-          console.log('Supabase sync optional')
+          console.log('Server sync optional')
         }
       },
       

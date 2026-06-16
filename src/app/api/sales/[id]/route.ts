@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { turso } from '@/lib/turso'
 import { NextResponse } from 'next/server'
 
 // PUT - Actualizar venta
@@ -7,25 +7,28 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = await createClient()
     const body = await request.json()
     const { id } = await params
-    
-    const { concept, amount, client, status } = body
+    const { concept, amount, client, status, quantity, delivery_date } = body
 
-    const { data: sale, error } = await supabase
-      .from('sales')
-      .update({ concept, amount, client, status })
-      .eq('id', id)
-      .select()
-      .single()
+    await turso.execute({
+      sql: `UPDATE sales SET concept = ?, amount = ?, client = ?, status = ?, quantity = ?, delivery_date = ? WHERE id = ?`,
+      args: [concept, amount, client || '', status, quantity || 1, delivery_date || null, id]
+    })
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
+    const sale = {
+      id,
+      concept,
+      amount: Number(amount),
+      client: client || '',
+      status,
+      quantity: quantity || 1,
+      delivery_date: delivery_date || null,
     }
 
     return NextResponse.json({ sale })
   } catch (error) {
+    console.error('Error updating sale:', error)
     return NextResponse.json({ error: 'Error interno' }, { status: 500 })
   }
 }
@@ -36,20 +39,16 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = await createClient()
     const { id } = await params
 
-    const { error } = await supabase
-      .from('sales')
-      .delete()
-      .eq('id', id)
-
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
+    await turso.execute({
+      sql: 'DELETE FROM sales WHERE id = ?',
+      args: [id]
+    })
 
     return NextResponse.json({ success: true })
   } catch (error) {
+    console.error('Error deleting sale:', error)
     return NextResponse.json({ error: 'Error interno' }, { status: 500 })
   }
 }

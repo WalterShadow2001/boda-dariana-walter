@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { turso } from '@/lib/turso'
 import { NextResponse } from 'next/server'
 
 // PUT - Actualizar proyecto
@@ -7,25 +7,27 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = await createClient()
     const body = await request.json()
     const { id } = await params
-    
     const { name, description } = body
 
-    const { data: project, error } = await supabase
-      .from('projects')
-      .update({ name, description })
-      .eq('id', id)
-      .select()
-      .single()
+    const now = new Date().toISOString()
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
+    await turso.execute({
+      sql: 'UPDATE projects SET name = ?, description = ?, updated_at = ? WHERE id = ?',
+      args: [name, description, now, id]
+    })
+
+    const project = {
+      id,
+      name,
+      description,
+      updated_at: now,
     }
 
     return NextResponse.json({ project })
   } catch (error) {
+    console.error('Error updating project:', error)
     return NextResponse.json({ error: 'Error interno' }, { status: 500 })
   }
 }
@@ -36,20 +38,27 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = await createClient()
     const { id } = await params
 
-    const { error } = await supabase
-      .from('projects')
-      .delete()
-      .eq('id', id)
+    // Delete associated sales and expenses first
+    await turso.execute({
+      sql: 'DELETE FROM sales WHERE project_id = ?',
+      args: [id]
+    })
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
+    await turso.execute({
+      sql: 'DELETE FROM expenses WHERE project_id = ?',
+      args: [id]
+    })
+
+    await turso.execute({
+      sql: 'DELETE FROM projects WHERE id = ?',
+      args: [id]
+    })
 
     return NextResponse.json({ success: true })
   } catch (error) {
+    console.error('Error deleting project:', error)
     return NextResponse.json({ error: 'Error interno' }, { status: 500 })
   }
 }

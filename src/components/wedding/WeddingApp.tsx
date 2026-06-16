@@ -4,7 +4,16 @@ import { useState, useEffect, useSyncExternalStore, useRef } from 'react'
 import { useWeddingStore } from '@/stores/wedding-store'
 import { useAuthStore } from '@/stores/auth-store'
 import { useThemeStore } from '@/stores/theme-store'
-import { testConnection } from '@/lib/supabase'
+async function testConnection(): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch('/api/debug')
+    const data = await res.json()
+    if (data.status === 'SUCCESS') return { success: true }
+    return { success: false, error: data.error || 'Error de conexión' }
+  } catch (err) {
+    return { success: false, error: String(err) }
+  }
+}
 import { WeddingHeader } from './WeddingHeader'
 import { ProjectList } from './ProjectList'
 import { ProjectDetail } from './ProjectDetail'
@@ -46,7 +55,7 @@ export function WeddingApp() {
     selectProject, 
     deleteProject, 
     addProject, 
-    loadFromSupabase, 
+    loadFromDatabase, 
     isLoading: dataLoading,
     connectionError 
   } = useWeddingStore()
@@ -88,7 +97,7 @@ export function WeddingApp() {
     if (result.success) {
       setShowConnectionError(false)
       setLocalError(null)
-      await loadFromSupabase()
+      await loadFromDatabase()
     } else {
       setLocalError(result.error || 'Error desconocido')
     }
@@ -100,7 +109,7 @@ export function WeddingApp() {
       hasLoadedRef.current = true
       testConnection().then(result => {
         if (result.success) {
-          loadFromSupabase()
+          loadFromDatabase()
         } else {
           console.log('Connection error:', result.error)
           setLocalError(result.error || 'Error de conexión')
@@ -108,7 +117,7 @@ export function WeddingApp() {
         }
       })
     }
-  }, [isAuthenticated, isHydrated, loadFromSupabase])
+  }, [isAuthenticated, isHydrated, loadFromDatabase])
 
   // Loading during hydration
   if (!isHydrated) {

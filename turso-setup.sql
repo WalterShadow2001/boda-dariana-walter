@@ -1,0 +1,67 @@
+-- =============================================
+-- TURSO DATABASE SETUP FOR WEDDING PROJECT
+-- Dariana & Walter
+-- =============================================
+-- Ejecuta este SQL en el Turso SQL Console
+-- o con: turso db shell boda-db < turso-setup.sql
+-- =============================================
+
+-- 1. Tabla de proyectos
+CREATE TABLE IF NOT EXISTS projects (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  description TEXT DEFAULT '',
+  created_at TEXT DEFAULT (datetime('now')),
+  updated_at TEXT DEFAULT (datetime('now'))
+);
+
+-- 2. Tabla de ventas
+CREATE TABLE IF NOT EXISTS sales (
+  id TEXT PRIMARY KEY,
+  project_id TEXT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+  concept TEXT NOT NULL,
+  amount REAL NOT NULL DEFAULT 0,
+  client TEXT DEFAULT '',
+  status TEXT DEFAULT 'pending' CHECK (status IN ('paid', 'pending', 'in_progress', 'partial', 'cancelled')),
+  quantity INTEGER DEFAULT 1,
+  delivery_date TEXT DEFAULT NULL,
+  created_at TEXT DEFAULT (datetime('now'))
+);
+
+-- 3. Tabla de gastos
+CREATE TABLE IF NOT EXISTS expenses (
+  id TEXT PRIMARY KEY,
+  project_id TEXT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+  concept TEXT NOT NULL,
+  amount REAL NOT NULL DEFAULT 0,
+  notes TEXT DEFAULT '',
+  quantity INTEGER DEFAULT 1,
+  created_at TEXT DEFAULT (datetime('now'))
+);
+
+-- 4. Tabla de configuración (meta de ahorro y tema)
+CREATE TABLE IF NOT EXISTS settings (
+  id INTEGER PRIMARY KEY DEFAULT 1,
+  savings_goal REAL DEFAULT 0,
+  theme TEXT DEFAULT NULL,
+  updated_at TEXT DEFAULT (datetime('now'))
+);
+
+-- Insertar configuración inicial
+INSERT OR IGNORE INTO settings (id, savings_goal) VALUES (1, 0);
+
+-- 5. Tabla de autenticación (sesión simple)
+CREATE TABLE IF NOT EXISTS auth_session (
+  id INTEGER PRIMARY KEY DEFAULT 1,
+  is_authenticated INTEGER DEFAULT 0,
+  updated_at TEXT DEFAULT (datetime('now'))
+);
+
+INSERT OR IGNORE INTO auth_session (id, is_authenticated) VALUES (1, 0);
+
+-- =============================================
+-- ÍNDICES PARA MEJOR RENDIMIENTO
+-- =============================================
+CREATE INDEX IF NOT EXISTS idx_sales_project_id ON sales(project_id);
+CREATE INDEX IF NOT EXISTS idx_expenses_project_id ON expenses(project_id);
+CREATE INDEX IF NOT EXISTS idx_sales_status ON sales(status);

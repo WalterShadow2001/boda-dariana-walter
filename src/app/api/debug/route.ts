@@ -1,64 +1,42 @@
-import { createClient } from '@supabase/supabase-js'
+import { turso, isTursoConfigured } from '@/lib/turso'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  
-  // Check environment variables
+  const tursoUrl = process.env.TURSO_DATABASE_URL
+  const tursoToken = process.env.TURSO_AUTH_TOKEN
+
   const envStatus = {
-    url: supabaseUrl ? 'SET' : 'NOT SET',
-    key: supabaseKey ? 'SET' : 'NOT SET',
-    urlValue: supabaseUrl || null,
-    keyPrefix: supabaseKey ? supabaseKey.substring(0, 20) + '...' : null
+    url: tursoUrl ? 'SET' : 'NOT SET',
+    token: tursoToken ? 'SET' : 'NOT SET',
+    urlValue: tursoUrl || null,
+    configured: isTursoConfigured,
   }
-  
-  if (!supabaseUrl || !supabaseKey) {
+
+  if (!isTursoConfigured) {
     return NextResponse.json({
-      error: 'Missing environment variables',
-      env: envStatus
+      error: 'Missing Turso environment variables',
+      env: envStatus,
     })
   }
-  
-  // Try to connect
+
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey)
-    
-    // Test 1: Simple query
-    const { data: testData, error: testError } = await supabase
-      .from('projects')
-      .select('id')
-      .limit(1)
-    
-    if (testError) {
-      return NextResponse.json({
-        status: 'CONNECTION_ERROR',
-        error: testError.message,
-        code: testError.code,
-        details: testError.details,
-        hint: testError.hint,
-        env: envStatus
-      })
-    }
-    
-    // Test 2: Get all projects
-    const { data: projects, error: projectsError } = await supabase
-      .from('projects')
-      .select('*')
-    
+    // Test connection
+    const result = await turso.execute('SELECT COUNT(*) as count FROM projects')
+
+    const projectsResult = await turso.execute('SELECT * FROM projects')
+
     return NextResponse.json({
       status: 'SUCCESS',
       message: 'Connection working!',
       env: envStatus,
-      projectsCount: projects?.length || 0,
-      projects: projects || []
+      projectsCount: Number(result.rows[0].count),
+      projects: projectsResult.rows,
     })
-    
   } catch (err) {
     return NextResponse.json({
       status: 'EXCEPTION',
       error: String(err),
-      env: envStatus
+      env: envStatus,
     })
   }
 }

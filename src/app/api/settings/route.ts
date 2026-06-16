@@ -1,23 +1,29 @@
-import { createClient } from '@/lib/supabase/server'
+import { turso } from '@/lib/turso'
 import { NextResponse } from 'next/server'
 
 // GET - Obtener configuración
 export async function GET() {
   try {
-    const supabase = await createClient()
-    
-    const { data: settings, error } = await supabase
-      .from('settings')
-      .select('*')
-      .eq('id', 1)
-      .single()
+    const result = await turso.execute({
+      sql: 'SELECT * FROM settings WHERE id = 1',
+      args: []
+    })
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
+    if (result.rows.length === 0) {
+      return NextResponse.json({ settings: { id: 1, savings_goal: 0, theme: null } })
+    }
+
+    const row = result.rows[0]
+    const settings = {
+      id: row.id,
+      savings_goal: Number(row.savings_goal),
+      theme: row.theme ? JSON.parse(row.theme as string) : null,
+      updated_at: row.updated_at,
     }
 
     return NextResponse.json({ settings })
   } catch (error) {
+    console.error('Error fetching settings:', error)
     return NextResponse.json({ error: 'Error interno' }, { status: 500 })
   }
 }
@@ -25,28 +31,44 @@ export async function GET() {
 // PUT - Actualizar configuración
 export async function PUT(request: Request) {
   try {
-    const supabase = await createClient()
     const body = await request.json()
-    
     const { savings_goal, theme } = body
 
-    const updateData: Record<string, unknown> = {}
-    if (savings_goal !== undefined) updateData.savings_goal = savings_goal
-    if (theme) updateData.theme = theme
+    const now = new Date().toISOString()
 
-    const { data: settings, error } = await supabase
-      .from('settings')
-      .update(updateData)
-      .eq('id', 1)
-      .select()
-      .single()
+    if (savings_goal !== undefined && theme) {
+      await turso.execute({
+        sql: 'UPDATE settings SET savings_goal = ?, theme = ?, updated_at = ? WHERE id = 1',
+        args: [savings_goal, JSON.stringify(theme), now]
+      })
+    } else if (savings_goal !== undefined) {
+      await turso.execute({
+        sql: 'UPDATE settings SET savings_goal = ?, updated_at = ? WHERE id = 1',
+        args: [savings_goal, now]
+      })
+    } else if (theme) {
+      await turso.execute({
+        sql: 'UPDATE settings SET theme = ?, updated_at = ? WHERE id = 1',
+        args: [JSON.stringify(theme), now]
+      })
+    }
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
+    const result = await turso.execute({
+      sql: 'SELECT * FROM settings WHERE id = 1',
+      args: []
+    })
+
+    const row = result.rows[0]
+    const settings = {
+      id: row.id,
+      savings_goal: Number(row.savings_goal),
+      theme: row.theme ? JSON.parse(row.theme as string) : null,
+      updated_at: row.updated_at,
     }
 
     return NextResponse.json({ settings })
   } catch (error) {
+    console.error('Error updating settings:', error)
     return NextResponse.json({ error: 'Error interno' }, { status: 500 })
   }
 }
