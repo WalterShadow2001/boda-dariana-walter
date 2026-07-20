@@ -93,6 +93,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ raffle })
   } catch (error) {
     console.error('Error creating raffle:', error)
-    return NextResponse.json({ error: 'Error interno' }, { status: 500 })
+    const message = error instanceof Error ? error.message : 'Error interno'
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }
