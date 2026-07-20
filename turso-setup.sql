@@ -65,3 +65,34 @@ INSERT OR IGNORE INTO auth_session (id, is_authenticated) VALUES (1, 0);
 CREATE INDEX IF NOT EXISTS idx_sales_project_id ON sales(project_id);
 CREATE INDEX IF NOT EXISTS idx_expenses_project_id ON expenses(project_id);
 CREATE INDEX IF NOT EXISTS idx_sales_status ON sales(status);
+
+-- 6. Tabla de rifas
+CREATE TABLE IF NOT EXISTS raffles (
+  id TEXT PRIMARY KEY,
+  project_id TEXT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  description TEXT DEFAULT '',
+  amount REAL NOT NULL DEFAULT 0,
+  total_numbers INTEGER NOT NULL DEFAULT 100,
+  winner_number INTEGER DEFAULT NULL,
+  status TEXT DEFAULT 'active' CHECK (status IN ('active', 'completed', 'cancelled')),
+  created_at TEXT DEFAULT (datetime('now')),
+  updated_at TEXT DEFAULT (datetime('now'))
+);
+
+-- 7. Tabla de participantes de rifas
+CREATE TABLE IF NOT EXISTS raffle_participants (
+  id TEXT PRIMARY KEY,
+  raffle_id TEXT NOT NULL REFERENCES raffles(id) ON DELETE CASCADE,
+  number INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  phone TEXT DEFAULT '',
+  is_paid INTEGER DEFAULT 0,
+  created_at TEXT DEFAULT (datetime('now')),
+  UNIQUE(raffle_id, number)
+);
+
+-- Índices para rifas
+CREATE INDEX IF NOT EXISTS idx_raffles_project_id ON raffles(project_id);
+CREATE INDEX IF NOT EXISTS idx_raffle_participants_raffle_id ON raffle_participants(raffle_id);
+CREATE INDEX IF NOT EXISTS idx_raffle_participants_number ON raffle_participants(raffle_id, number);

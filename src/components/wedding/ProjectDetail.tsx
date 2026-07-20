@@ -9,6 +9,7 @@ import { useThemeStore } from '@/stores/theme-store'
 import { FinancialSummary } from './FinancialSummary'
 import { SalesSection } from './SalesSection'
 import { ExpensesSection } from './ExpensesSection'
+import { RaffleSection } from './RaffleSection'
 import { ProjectModal } from './ProjectModal'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
@@ -23,6 +24,7 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
   const { updateProject, addSale, updateSale, deleteSale, addExpense, updateExpense, deleteExpense, getProjectTotals } = useWeddingStore()
   const colors = useThemeStore((state) => state.colors)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [activeTab, setActiveTab] = useState<'sales' | 'raffle'>('sales')
   const totals = getProjectTotals(project.id)
 
   const formatDate = (dateString: string) => {
@@ -134,21 +136,49 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
           <FinancialSummary {...totals} />
         </div>
 
-        {/* Sales and Expenses Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <SalesSection
-            sales={project.sales}
-            onAddSale={(sale) => addSale(project.id, sale)}
-            onUpdateSale={(saleId, sale) => updateSale(project.id, saleId, sale)}
-            onDeleteSale={(saleId) => deleteSale(project.id, saleId)}
-          />
-          <ExpensesSection
-            expenses={project.expenses}
-            onAddExpense={(expense) => addExpense(project.id, expense)}
-            onUpdateExpense={(expenseId, expense) => updateExpense(project.id, expenseId, expense)}
-            onDeleteExpense={(expenseId) => deleteExpense(project.id, expenseId)}
-          />
+        {/* Tab Navigation: Ventas/Gastos vs Rifas */}
+        <div className="flex gap-2 mb-4">
+          <button
+            onClick={() => setActiveTab('sales')}
+            className="px-4 py-2 rounded-full text-sm font-medium transition-all"
+            style={{
+              backgroundColor: activeTab === 'sales' ? colors.primaryAccent : colors.secondaryBg,
+              color: activeTab === 'sales' ? colors.primaryBg : colors.secondaryText,
+            }}
+          >
+            💰 Ventas y Gastos
+          </button>
+          <button
+            onClick={() => setActiveTab('raffle')}
+            className="px-4 py-2 rounded-full text-sm font-medium transition-all"
+            style={{
+              backgroundColor: activeTab === 'raffle' ? colors.primaryAccent : colors.secondaryBg,
+              color: activeTab === 'raffle' ? colors.primaryBg : colors.secondaryText,
+            }}
+          >
+            🎟️ Rifas
+          </button>
         </div>
+
+        {/* Tab Content */}
+        {activeTab === 'sales' ? (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <SalesSection
+              sales={project.sales}
+              onAddSale={(sale) => addSale(project.id, sale)}
+              onUpdateSale={(saleId, sale) => updateSale(project.id, saleId, sale)}
+              onDeleteSale={(saleId) => deleteSale(project.id, saleId)}
+            />
+            <ExpensesSection
+              expenses={project.expenses}
+              onAddExpense={(expense) => addExpense(project.id, expense)}
+              onUpdateExpense={(expenseId, expense) => updateExpense(project.id, expenseId, expense)}
+              onDeleteExpense={(expenseId) => deleteExpense(project.id, expenseId)}
+            />
+          </div>
+        ) : (
+          <RaffleSection />
+        )}
       </div>
 
       {/* Edit Project Modal */}
