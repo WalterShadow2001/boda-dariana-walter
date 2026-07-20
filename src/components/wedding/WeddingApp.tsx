@@ -85,10 +85,10 @@ export function WeddingApp() {
     }
   }
 
-  const handleAddProject = async (name: string, description: string) => {
-    const result = await addProject(name, description)
+  const handleAddProject = async (name: string, description: string, type?: 'project' | 'raffle', amountPerNumber?: number, totalNumbers?: number) => {
+    const result = await addProject(name, description, type, amountPerNumber, totalNumbers)
     if (!result.success) {
-      alert(`Error al crear proyecto: ${result.error}`)
+      alert(`Error al crear: ${result.error}`)
     }
   }
 

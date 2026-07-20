@@ -3,6 +3,9 @@ export interface Database {
     id: string
     name: string
     description: string
+    type: 'project' | 'raffle'
+    amount_per_number: number
+    total_numbers: number
     created_at: string
     updated_at: string
   }
@@ -24,6 +27,27 @@ export interface Database {
     amount: number
     quantity: number
     notes: string
+    created_at: string
+  }
+  raffles: {
+    id: string
+    project_id: string
+    name: string
+    description: string
+    amount: number
+    total_numbers: number
+    winner_number: number | null
+    status: 'active' | 'completed' | 'cancelled'
+    created_at: string
+    updated_at: string
+  }
+  raffle_participants: {
+    id: string
+    raffle_id: string
+    number: number
+    name: string
+    phone: string
+    is_paid: number
     created_at: string
   }
   settings: {

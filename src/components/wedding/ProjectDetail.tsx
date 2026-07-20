@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { ArrowLeft, Pencil, Heart, Calendar, Sparkles } from 'lucide-react'
+import { ArrowLeft, Pencil, Heart, Calendar, Sparkles, Ticket } from 'lucide-react'
 import { Project, useWeddingStore } from '@/stores/wedding-store'
 import { useThemeStore } from '@/stores/theme-store'
 import { FinancialSummary } from './FinancialSummary'
@@ -26,6 +26,7 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [activeTab, setActiveTab] = useState<'sales' | 'raffle'>('sales')
   const totals = getProjectTotals(project.id)
+  const isRaffle = project.type === 'raffle'
 
   const formatDate = (dateString: string) => {
     try {
@@ -44,9 +45,9 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
       style={{ background: `linear-gradient(to bottom, ${colors.primaryBg}, ${colors.secondaryBg})` }}
     >
       {/* Header */}
-      <div 
+      <div
         className="border-b"
-        style={{ 
+        style={{
           background: `linear-gradient(to right, ${colors.secondaryBg}, ${colors.primaryBg}, ${colors.secondaryBg})`,
           borderColor: colors.borderColor
         }}
@@ -68,9 +69,9 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
 
       <div className="container mx-auto px-4 py-6">
         {/* Project Info */}
-        <Card 
+        <Card
           className="mb-6"
-          style={{ 
+          style={{
             backgroundColor: colors.cardBg,
             borderColor: colors.borderColor
           }}
@@ -78,33 +79,58 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
           <CardContent className="p-6">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
               <div className="flex items-start gap-4">
-                <div 
+                <div
                   className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0"
-                  style={{ background: `linear-gradient(135deg, ${colors.secondaryBg}, ${colors.primaryAccent}30)` }}
+                  style={{
+                    background: isRaffle
+                      ? `linear-gradient(135deg, ${colors.secondaryBg}, ${colors.goldAccent}30)`
+                      : `linear-gradient(135deg, ${colors.secondaryBg}, ${colors.primaryAccent}30)`
+                  }}
                 >
-                  <Heart size={28} style={{ color: colors.primaryAccent }} fill={colors.primaryAccent} />
+                  {isRaffle ? (
+                    <Ticket size={28} style={{ color: colors.goldAccent }} />
+                  ) : (
+                    <Heart size={28} style={{ color: colors.primaryAccent }} fill={colors.primaryAccent} />
+                  )}
                 </div>
                 <div>
-                  <h1 
+                  <h1
                     className="text-2xl md:text-3xl font-bold"
                     style={{ color: colors.primaryText }}
                   >
                     {project.name}
                   </h1>
-                  <div 
+                  <div
                     className="flex items-center gap-2 mt-2 text-sm"
                     style={{ color: colors.mutedText }}
                   >
                     <Calendar size={14} />
                     Creado el {formatDate(project.createdAt)}
+                    {isRaffle && (
+                      <span
+                        className="ml-2 px-2 py-0.5 rounded-full text-xs font-medium"
+                        style={{
+                          backgroundColor: colors.goldAccent + '20',
+                          color: colors.goldAccent,
+                        }}
+                      >
+                        RIFA
+                      </span>
+                    )}
                   </div>
                   {project.description && (
-                    <p 
+                    <p
                       className="mt-3 max-w-xl"
                       style={{ color: colors.secondaryText }}
                     >
                       {project.description}
                     </p>
+                  )}
+                  {isRaffle && project.amountPerNumber > 0 && (
+                    <div className="mt-2 flex items-center gap-4 text-sm" style={{ color: colors.mutedText }}>
+                      <span>Monto por número: <strong style={{ color: colors.goldAccent }}>{new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 0 }).format(project.amountPerNumber)}</strong></span>
+                      <span>Total de números: <strong style={{ color: colors.primaryText }}>{project.totalNumbers || 100}</strong></span>
+                    </div>
                   )}
                 </div>
               </div>
@@ -112,72 +138,79 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                 variant="outline"
                 size="sm"
                 onClick={() => setIsEditModalOpen(true)}
-                style={{ 
-                  borderColor: colors.primaryAccent,
-                  color: colors.primaryAccent
+                style={{
+                  borderColor: isRaffle ? colors.goldAccent : colors.primaryAccent,
+                  color: isRaffle ? colors.goldAccent : colors.primaryAccent
                 }}
               >
                 <Pencil size={14} className="mr-1.5" />
-                Editar Proyecto
+                Editar
               </Button>
             </div>
           </CardContent>
         </Card>
 
-        {/* Financial Summary */}
-        <div className="mb-6">
-          <h2 
-            className="text-lg font-semibold mb-3 flex items-center gap-2"
-            style={{ color: colors.primaryText }}
-          >
-            <Sparkles size={18} style={{ color: colors.goldAccent }} />
-            Resumen Financiero
-          </h2>
-          <FinancialSummary {...totals} />
-        </div>
-
-        {/* Tab Navigation: Ventas/Gastos vs Rifas */}
-        <div className="flex gap-2 mb-4">
-          <button
-            onClick={() => setActiveTab('sales')}
-            className="px-4 py-2 rounded-full text-sm font-medium transition-all"
-            style={{
-              backgroundColor: activeTab === 'sales' ? colors.primaryAccent : colors.secondaryBg,
-              color: activeTab === 'sales' ? colors.primaryBg : colors.secondaryText,
-            }}
-          >
-            💰 Ventas y Gastos
-          </button>
-          <button
-            onClick={() => setActiveTab('raffle')}
-            className="px-4 py-2 rounded-full text-sm font-medium transition-all"
-            style={{
-              backgroundColor: activeTab === 'raffle' ? colors.primaryAccent : colors.secondaryBg,
-              color: activeTab === 'raffle' ? colors.primaryBg : colors.secondaryText,
-            }}
-          >
-            🎟️ Rifas
-          </button>
-        </div>
-
-        {/* Tab Content */}
-        {activeTab === 'sales' ? (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <SalesSection
-              sales={project.sales}
-              onAddSale={(sale) => addSale(project.id, sale)}
-              onUpdateSale={(saleId, sale) => updateSale(project.id, saleId, sale)}
-              onDeleteSale={(saleId) => deleteSale(project.id, saleId)}
-            />
-            <ExpensesSection
-              expenses={project.expenses}
-              onAddExpense={(expense) => addExpense(project.id, expense)}
-              onUpdateExpense={(expenseId, expense) => updateExpense(project.id, expenseId, expense)}
-              onDeleteExpense={(expenseId) => deleteExpense(project.id, expenseId)}
-            />
-          </div>
-        ) : (
+        {/* For RIFA type - show RaffleSection directly */}
+        {isRaffle ? (
           <RaffleSection />
+        ) : (
+          <>
+            {/* Financial Summary - only for regular projects */}
+            <div className="mb-6">
+              <h2
+                className="text-lg font-semibold mb-3 flex items-center gap-2"
+                style={{ color: colors.primaryText }}
+              >
+                <Sparkles size={18} style={{ color: colors.goldAccent }} />
+                Resumen Financiero
+              </h2>
+              <FinancialSummary {...totals} />
+            </div>
+
+            {/* Tab Navigation: Ventas/Gastos vs Rifas */}
+            <div className="flex gap-2 mb-4">
+              <button
+                onClick={() => setActiveTab('sales')}
+                className="px-4 py-2 rounded-full text-sm font-medium transition-all"
+                style={{
+                  backgroundColor: activeTab === 'sales' ? colors.primaryAccent : colors.secondaryBg,
+                  color: activeTab === 'sales' ? colors.primaryBg : colors.secondaryText,
+                }}
+              >
+                💰 Ventas y Gastos
+              </button>
+              <button
+                onClick={() => setActiveTab('raffle')}
+                className="px-4 py-2 rounded-full text-sm font-medium transition-all"
+                style={{
+                  backgroundColor: activeTab === 'raffle' ? colors.primaryAccent : colors.secondaryBg,
+                  color: activeTab === 'raffle' ? colors.primaryBg : colors.secondaryText,
+                }}
+              >
+                🎟️ Rifas
+              </button>
+            </div>
+
+            {/* Tab Content */}
+            {activeTab === 'sales' ? (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <SalesSection
+                  sales={project.sales}
+                  onAddSale={(sale) => addSale(project.id, sale)}
+                  onUpdateSale={(saleId, sale) => updateSale(project.id, saleId, sale)}
+                  onDeleteSale={(saleId) => deleteSale(project.id, saleId)}
+                />
+                <ExpensesSection
+                  expenses={project.expenses}
+                  onAddExpense={(expense) => addExpense(project.id, expense)}
+                  onUpdateExpense={(expenseId, expense) => updateExpense(project.id, expenseId, expense)}
+                  onDeleteExpense={(expenseId) => deleteExpense(project.id, expenseId)}
+                />
+              </div>
+            ) : (
+              <RaffleSection />
+            )}
+          </>
         )}
       </div>
 
@@ -185,10 +218,20 @@ export function ProjectDetail({ project, onBack }: ProjectDetailProps) {
       <ProjectModal
         open={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
-        onSave={(name, description) => {
-          updateProject(project.id, name, description)
+        onSave={(name, description, _type, amountPerNumber, totalNumbers) => {
+          if (isRaffle) {
+            updateProject(project.id, name, description, amountPerNumber, totalNumbers)
+          } else {
+            updateProject(project.id, name, description)
+          }
         }}
-        initialData={{ name: project.name, description: project.description }}
+        initialData={{
+          name: project.name,
+          description: project.description,
+          type: project.type,
+          amountPerNumber: project.amountPerNumber,
+          totalNumbers: project.totalNumbers,
+        }}
         mode="edit"
       />
     </motion.div>

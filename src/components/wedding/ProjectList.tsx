@@ -49,8 +49,8 @@ export function ProjectList({ projects, onSelectProject, onDeleteProject, onAddP
           className="mt-2 text-center max-w-sm"
           style={{ color: colors.mutedText }}
         >
-          Comienza a planificar tu boda creando tu primer proyecto. 
-          Podrás llevar el control de ventas, gastos y ganancias.
+          Comienza a planificar tu boda creando tu primer proyecto o rifa. 
+          Podrás llevar el control de ventas, gastos y rifas.
         </p>
         <button
           onClick={onAddProject}

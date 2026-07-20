@@ -6,11 +6,14 @@
 -- o con: turso db shell boda-db < turso-setup.sql
 -- =============================================
 
--- 1. Tabla de proyectos
+-- 1. Tabla de proyectos (soporta tipo proyecto y rifa)
 CREATE TABLE IF NOT EXISTS projects (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
   description TEXT DEFAULT '',
+  type TEXT DEFAULT 'project' CHECK (type IN ('project', 'raffle')),
+  amount_per_number REAL DEFAULT 0,
+  total_numbers INTEGER DEFAULT 100,
   created_at TEXT DEFAULT (datetime('now')),
   updated_at TEXT DEFAULT (datetime('now'))
 );
