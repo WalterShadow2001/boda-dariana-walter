@@ -38,16 +38,16 @@ export function Countdown({ targetDate }: { targetDate: string }) {
   ];
 
   return (
-    <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-xl mx-auto">
+    <div className="grid grid-cols-4 gap-1.5 sm:gap-3 md:gap-4 max-w-md sm:max-w-xl mx-auto px-1">
       {items.map((it) => (
         <div
           key={it.label}
-          className="glass-card rounded-lg p-3 sm:p-4 text-center"
+          className="glass-card rounded-md sm:rounded-lg p-2 sm:p-3 md:p-4 text-center"
         >
-          <div className="text-3xl sm:text-5xl font-serif text-amber-300 tabular-nums">
+          <div className="text-xl sm:text-4xl md:text-5xl font-serif text-amber-300 tabular-nums leading-none">
             {String(it.value).padStart(2, "0")}
           </div>
-          <div className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-amber-100/60 mt-1">
+          <div className="text-[8px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-amber-100/60 mt-1 sm:mt-2">
             {it.label}
           </div>
         </div>

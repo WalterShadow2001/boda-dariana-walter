@@ -107,6 +107,10 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
   body {
     @apply text-foreground;
     background-color: #0a0a0a;
@@ -116,9 +120,22 @@
       radial-gradient(at 50% 50%, rgba(109, 40, 217, 0.04) 0px, transparent 60%);
     background-attachment: fixed;
     font-family: var(--font-inter), sans-serif;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-playfair), serif;
+  }
+  /* Prevent text overflow on mobile */
+  p, span, div {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  /* Better touch targets on mobile */
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 }
 

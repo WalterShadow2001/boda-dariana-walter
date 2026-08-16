@@ -106,29 +106,29 @@ export function AdminPanel({
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="glass-card rounded-3xl p-8 sm:p-12 max-w-md w-full text-center relative"
+          className="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-12 max-w-md w-full text-center relative"
         >
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-amber-200/60 hover:text-amber-200"
+            className="absolute top-3 right-3 sm:top-4 sm:right-4 text-amber-200/60 hover:text-amber-200 p-1"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
 
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 to-violet-600 flex items-center justify-center mx-auto mb-6 pulse-gold">
-            <Lock className="w-8 h-8 text-black" />
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-amber-400 to-violet-600 flex items-center justify-center mx-auto mb-4 sm:mb-6 pulse-gold">
+            <Lock className="w-7 h-7 sm:w-8 sm:h-8 text-black" />
           </div>
 
-          <h2 className="text-3xl font-serif italic text-gold-gradient mb-2">
+          <h2 className="text-2xl sm:text-3xl font-serif italic text-gold-gradient mb-2">
             Panel Privado
           </h2>
-          <p className="text-amber-100/70 font-display text-lg italic mb-8">
+          <p className="text-amber-100/70 font-display text-sm sm:text-lg italic mb-6 sm:mb-8 px-2">
             Ingresa la contraseña para administrar
           </p>
 
           <div className="space-y-4 text-left">
             <div>
-              <Label htmlFor="pwd" className="text-amber-200/80 tracking-widest uppercase text-xs">
+              <Label htmlFor="pwd" className="text-amber-200/80 tracking-widest uppercase text-[10px] sm:text-xs">
                 Contraseña
               </Label>
               <Input
@@ -138,7 +138,7 @@ export function AdminPanel({
                 onChange={(e) => setPassword(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && verify()}
                 placeholder="••••••••"
-                className="mt-2 bg-black/40 border-amber-400/30 text-amber-50 placeholder:text-amber-100/30 font-display text-lg tracking-widest"
+                className="mt-2 bg-black/40 border-amber-400/30 text-amber-50 placeholder:text-amber-100/30 font-display text-base sm:text-lg tracking-widest h-11"
                 autoFocus
               />
             </div>
@@ -146,7 +146,7 @@ export function AdminPanel({
             <Button
               onClick={verify}
               disabled={verifying}
-              className="w-full bg-gradient-to-r from-amber-600 via-amber-400 to-amber-600 hover:from-amber-500 hover:via-amber-300 hover:to-amber-500 text-black font-medium tracking-widest uppercase rounded-full py-6"
+              className="w-full bg-gradient-to-r from-amber-600 via-amber-400 to-amber-600 hover:from-amber-500 hover:via-amber-300 hover:to-amber-500 text-black font-medium tracking-widest uppercase rounded-full h-12 sm:py-6 text-sm sm:text-base"
             >
               {verifying ? (
                 <>
@@ -161,7 +161,7 @@ export function AdminPanel({
               )}
             </Button>
 
-            <p className="text-xs text-amber-100/40 text-center mt-4">
+            <p className="text-[10px] sm:text-xs text-amber-100/40 text-center mt-4 px-2">
               Contraseña por defecto: <span className="text-amber-300/70 font-mono">boda2026</span>
               <br />
               (cámbiala en <code className="text-amber-300/70">src/lib/wedding-config.ts</code>)
@@ -178,58 +178,58 @@ export function AdminPanel({
       animate={{ opacity: 1 }}
       className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl overflow-y-auto"
     >
-      <div className="max-w-5xl mx-auto p-4 sm:p-8">
+      <div className="max-w-5xl mx-auto p-3 sm:p-4 md:p-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-serif italic text-gold-gradient">
+        <div className="flex items-center justify-between mb-4 sm:mb-8 gap-2">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-xl sm:text-3xl md:text-4xl font-serif italic text-gold-gradient truncate">
               Panel de Confirmaciones
             </h1>
-            <p className="text-amber-100/60 font-display text-sm mt-1">
+            <p className="text-amber-100/60 font-display text-xs sm:text-sm mt-1">
               Contraseña verificada ✓
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-1.5 sm:gap-2 shrink-0">
             <Button
               variant="outline"
               onClick={exportCSV}
-              className="border-amber-400/40 text-amber-200 hover:bg-amber-400/10"
+              className="border-amber-400/40 text-amber-200 hover:bg-amber-400/10 h-9 sm:h-10 px-2 sm:px-3 text-xs sm:text-sm"
             >
-              <Download className="w-4 h-4 mr-2" />
-              CSV
+              <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-2" />
+              <span className="hidden sm:inline">CSV</span>
             </Button>
             <Button
               variant="outline"
               onClick={onClose}
-              className="border-amber-400/40 text-amber-200 hover:bg-amber-400/10"
+              className="border-amber-400/40 text-amber-200 hover:bg-amber-400/10 h-9 sm:h-10 px-2 sm:px-3 text-xs sm:text-sm"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Volver
+              <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-2" />
+              <span className="hidden sm:inline">Volver</span>
             </Button>
           </div>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          <div className="glass-card rounded-2xl p-5 text-center border-emerald-500/20">
-            <Check className="w-7 h-7 text-emerald-400 mx-auto mb-2" />
-            <div className="text-4xl font-serif text-emerald-300">{attending.length}</div>
-            <div className="text-xs uppercase tracking-widest text-amber-100/60 mt-1">
-              Personas confirmadas
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-8">
+          <div className="glass-card rounded-lg sm:rounded-2xl p-2.5 sm:p-5 text-center border-emerald-500/20">
+            <Check className="w-5 h-5 sm:w-7 sm:h-7 text-emerald-400 mx-auto mb-1 sm:mb-2" />
+            <div className="text-xl sm:text-4xl font-serif text-emerald-300 leading-none">{attending.length}</div>
+            <div className="text-[9px] sm:text-xs uppercase tracking-widest text-amber-100/60 mt-1">
+              Confirmados
             </div>
           </div>
-          <div className="glass-card rounded-2xl p-5 text-center border-amber-500/20">
-            <Users className="w-7 h-7 text-amber-400 mx-auto mb-2" />
-            <div className="text-4xl font-serif text-amber-300">{totalGuests}</div>
-            <div className="text-xs uppercase tracking-widest text-amber-100/60 mt-1">
-              Total de invitados
+          <div className="glass-card rounded-lg sm:rounded-2xl p-2.5 sm:p-5 text-center border-amber-500/20">
+            <Users className="w-5 h-5 sm:w-7 sm:h-7 text-amber-400 mx-auto mb-1 sm:mb-2" />
+            <div className="text-xl sm:text-4xl font-serif text-amber-300 leading-none">{totalGuests}</div>
+            <div className="text-[9px] sm:text-xs uppercase tracking-widest text-amber-100/60 mt-1">
+              Invitados
             </div>
           </div>
-          <div className="glass-card rounded-2xl p-5 text-center border-rose-500/20">
-            <X className="w-7 h-7 text-rose-400 mx-auto mb-2" />
-            <div className="text-4xl font-serif text-rose-300">{notAttending.length}</div>
-            <div className="text-xs uppercase tracking-widest text-amber-100/60 mt-1">
-              No podrán asistir
+          <div className="glass-card rounded-lg sm:rounded-2xl p-2.5 sm:p-5 text-center border-rose-500/20">
+            <X className="w-5 h-5 sm:w-7 sm:h-7 text-rose-400 mx-auto mb-1 sm:mb-2" />
+            <div className="text-xl sm:text-4xl font-serif text-rose-300 leading-none">{notAttending.length}</div>
+            <div className="text-[9px] sm:text-xs uppercase tracking-widest text-amber-100/60 mt-1">
+              No asistirán
             </div>
           </div>
         </div>
@@ -240,35 +240,35 @@ export function AdminPanel({
             <Loader2 className="w-8 h-8 text-amber-400 animate-spin mx-auto" />
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Attending */}
             <div>
-              <h2 className="text-xl font-serif text-emerald-300 mb-4 flex items-center gap-2">
-                <Check className="w-5 h-5" />
+              <h2 className="text-base sm:text-xl font-serif text-emerald-300 mb-3 sm:mb-4 flex items-center gap-2">
+                <Check className="w-4 h-4 sm:w-5 sm:h-5" />
                 Confirmados ({attending.length})
               </h2>
-              <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-2">
+              <div className="space-y-2 sm:space-y-3 max-h-[55vh] md:max-h-[60vh] overflow-y-auto pr-1 sm:pr-2">
                 {attending.length === 0 ? (
                   <p className="text-amber-100/40 text-sm italic">Aún nadie ha confirmado</p>
                 ) : (
                   attending.map((r) => (
                     <div
                       key={r.id}
-                      className="glass-card rounded-xl p-4 border-emerald-500/20"
+                      className="glass-card rounded-lg sm:rounded-xl p-3 sm:p-4 border-emerald-500/20"
                     >
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <div className="font-display text-lg text-amber-50">{r.name}</div>
-                          <div className="text-sm text-emerald-300/80">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="min-w-0">
+                          <div className="font-display text-sm sm:text-lg text-amber-50 truncate">{r.name}</div>
+                          <div className="text-xs sm:text-sm text-emerald-300/80">
                             {r.guests} {r.guests === 1 ? "invitado" : "invitados"}
                           </div>
                         </div>
-                        <div className="text-xs text-amber-100/40">
+                        <div className="text-[10px] sm:text-xs text-amber-100/40 shrink-0">
                           {new Date(r.createdAt).toLocaleDateString("es-MX")}
                         </div>
                       </div>
                       {r.message && (
-                        <p className="mt-2 text-sm text-amber-100/70 italic font-display border-l-2 border-amber-400/30 pl-3">
+                        <p className="mt-2 text-xs sm:text-sm text-amber-100/70 italic font-display border-l-2 border-amber-400/30 pl-2 sm:pl-3 break-words">
                           {r.message}
                         </p>
                       )}
@@ -280,27 +280,27 @@ export function AdminPanel({
 
             {/* Not attending */}
             <div>
-              <h2 className="text-xl font-serif text-rose-300 mb-4 flex items-center gap-2">
-                <X className="w-5 h-5" />
+              <h2 className="text-base sm:text-xl font-serif text-rose-300 mb-3 sm:mb-4 flex items-center gap-2">
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
                 No asistirán ({notAttending.length})
               </h2>
-              <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-2">
+              <div className="space-y-2 sm:space-y-3 max-h-[55vh] md:max-h-[60vh] overflow-y-auto pr-1 sm:pr-2">
                 {notAttending.length === 0 ? (
                   <p className="text-amber-100/40 text-sm italic">Nadie ha declinado aún</p>
                 ) : (
                   notAttending.map((r) => (
                     <div
                       key={r.id}
-                      className="glass-card rounded-xl p-4 border-rose-500/20"
+                      className="glass-card rounded-lg sm:rounded-xl p-3 sm:p-4 border-rose-500/20"
                     >
-                      <div className="flex items-start justify-between">
-                        <div className="font-display text-lg text-amber-50">{r.name}</div>
-                        <div className="text-xs text-amber-100/40">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="font-display text-sm sm:text-lg text-amber-50 truncate min-w-0 flex-1">{r.name}</div>
+                        <div className="text-[10px] sm:text-xs text-amber-100/40 shrink-0">
                           {new Date(r.createdAt).toLocaleDateString("es-MX")}
                         </div>
                       </div>
                       {r.message && (
-                        <p className="mt-2 text-sm text-amber-100/70 italic font-display border-l-2 border-amber-400/30 pl-3">
+                        <p className="mt-2 text-xs sm:text-sm text-amber-100/70 italic font-display border-l-2 border-amber-400/30 pl-2 sm:pl-3 break-words">
                           {r.message}
                         </p>
                       )}

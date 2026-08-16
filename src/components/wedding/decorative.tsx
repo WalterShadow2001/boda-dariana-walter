@@ -33,7 +33,7 @@ export function DecorativeDivider({ symbol = "✦", className = "" }: DividerPro
 export function Monogram({ initials = "M&A" }: { initials?: string }) {
   return (
     <div className="relative inline-flex items-center justify-center">
-      <svg width="80" height="80" viewBox="0 0 80 80" className="text-amber-400">
+      <svg width="64" height="64" viewBox="0 0 80 80" className="text-amber-400 w-16 h-16 sm:w-20 sm:h-20">
         <circle cx="40" cy="40" r="38" fill="none" stroke="currentColor" strokeWidth="0.8" opacity="0.6" />
         <circle cx="40" cy="40" r="34" fill="none" stroke="currentColor" strokeWidth="0.4" opacity="0.4" />
         <text
@@ -56,7 +56,7 @@ export function FloralCorner({ className = "", flip = false }: { className?: str
   return (
     <svg
       viewBox="0 0 100 100"
-      className={`w-16 h-16 text-amber-400/40 ${flip ? "scale-x-[-1]" : ""} ${className}`}
+      className={`w-10 h-10 sm:w-16 sm:h-16 text-amber-400/40 ${flip ? "scale-x-[-1]" : ""} ${className}`}
       fill="none"
       stroke="currentColor"
       strokeWidth="0.8"

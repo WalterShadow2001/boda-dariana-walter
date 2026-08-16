@@ -94,7 +94,7 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
   };
 
   return (
-    <section id="fotos" className="py-20 px-4 relative scroll-mt-10">
+    <section id="fotos" className="py-12 sm:py-20 px-4 sm:px-6 relative scroll-mt-10">
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -103,15 +103,15 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
           transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <h2 className="text-4xl sm:text-5xl font-serif italic text-gold-gradient mb-2">
+          <h2 className="text-3xl sm:text-5xl font-serif italic text-gold-gradient mb-2">
             Galería de Momentos
           </h2>
-          <div className="flex items-center justify-center gap-4 my-6">
-            <span className="h-px w-16 bg-gradient-to-r from-transparent to-amber-500/60" />
-            <ImageIcon className="w-5 h-5 text-amber-400" />
-            <span className="h-px w-16 bg-gradient-to-l from-transparent to-amber-500/60" />
+          <div className="flex items-center justify-center gap-3 sm:gap-4 my-4 sm:my-6">
+            <span className="h-px w-10 sm:w-16 bg-gradient-to-r from-transparent to-amber-500/60" />
+            <ImageIcon className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
+            <span className="h-px w-10 sm:w-16 bg-gradient-to-l from-transparent to-amber-500/60" />
           </div>
-          <p className="text-amber-50/70 font-display text-lg italic">
+          <p className="text-amber-50/70 font-display text-sm sm:text-lg italic px-2">
             Compartimos con ustedes nuestros momentos más preciados
           </p>
         </motion.div>
@@ -120,29 +120,29 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card rounded-2xl p-6 mt-8 mb-8 border-violet-500/30"
+            className="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 mt-6 sm:mt-8 mb-6 sm:mb-8 border-violet-500/30"
           >
-            <h3 className="font-serif text-xl text-amber-100 mb-4 flex items-center gap-2">
-              <Upload className="w-5 h-5 text-violet-400" />
+            <h3 className="font-serif text-lg sm:text-xl text-amber-100 mb-3 sm:mb-4 flex items-center gap-2">
+              <Upload className="w-4 h-4 sm:w-5 sm:h-5 text-violet-400" />
               Subir nueva foto
             </h3>
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               <Input
                 type="file"
                 accept="image/*"
                 onChange={(e) => setFile(e.target.files?.[0] || null)}
-                className="bg-black/30 border-amber-400/30 text-amber-50 file:bg-amber-500/20 file:text-amber-200 file:border-0 file:rounded file:px-3 file:py-1 file:mr-3 file:font-sans"
+                className="bg-black/30 border-amber-400/30 text-amber-50 file:bg-amber-500/20 file:text-amber-200 file:border-0 file:rounded file:px-2 file:py-1 file:mr-2 file:font-sans text-xs sm:text-sm h-10 sm:h-11"
               />
               <Input
                 value={caption}
                 onChange={(e) => setCaption(e.target.value)}
-                placeholder="Descripción de la foto (opcional)"
-                className="bg-black/30 border-amber-400/30 text-amber-50 placeholder:text-amber-100/30 font-display"
+                placeholder="Descripción (opcional)"
+                className="bg-black/30 border-amber-400/30 text-amber-50 placeholder:text-amber-100/30 font-display text-sm sm:text-base h-10 sm:h-11"
               />
               <Button
                 onClick={handleUpload}
                 disabled={uploading || !file}
-                className="w-full bg-gradient-to-r from-violet-600 to-violet-700 hover:from-violet-500 hover:to-violet-600 text-white font-medium tracking-wider uppercase rounded-full"
+                className="w-full bg-gradient-to-r from-violet-600 to-violet-700 hover:from-violet-500 hover:to-violet-600 text-white font-medium tracking-wider uppercase rounded-full h-11 text-xs sm:text-sm"
               >
                 {uploading ? (
                   <>
@@ -165,19 +165,19 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
             <Loader2 className="w-8 h-8 text-amber-400 animate-spin mx-auto" />
           </div>
         ) : photos.length === 0 ? (
-          <div className="text-center py-12 glass-card rounded-2xl">
-            <ImageIcon className="w-12 h-12 text-amber-400/30 mx-auto mb-3" />
-            <p className="text-amber-100/50 font-display text-lg italic">
+          <div className="text-center py-12 glass-card rounded-xl sm:rounded-2xl">
+            <ImageIcon className="w-10 h-10 sm:w-12 sm:h-12 text-amber-400/30 mx-auto mb-3" />
+            <p className="text-amber-100/50 font-display text-base sm:text-lg italic px-2">
               Aún no hay fotos compartidas
             </p>
             {adminPassword && (
-              <p className="text-amber-100/40 text-sm mt-2">
+              <p className="text-amber-100/40 text-xs sm:text-sm mt-2">
                 Sube la primera foto desde el panel de arriba
               </p>
             )}
           </div>
         ) : (
-          <div className="columns-2 sm:columns-3 gap-4 mt-8">
+          <div className="columns-2 sm:columns-3 gap-2 sm:gap-4 mt-6 sm:mt-8">
             {photos.map((photo, i) => (
               <motion.div
                 key={photo.id}
@@ -185,7 +185,7 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: (i % 6) * 0.05 }}
-                className="relative group break-inside-avoid mb-4 rounded-xl overflow-hidden border border-amber-400/20 cursor-pointer"
+                className="relative group break-inside-avoid mb-2 sm:mb-4 rounded-lg sm:rounded-xl overflow-hidden border border-amber-400/20 cursor-pointer"
                 onClick={() => setSelected(photo)}
               >
                 <img
@@ -194,8 +194,8 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
                   className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
                 />
                 {photo.caption && (
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3">
-                    <p className="text-amber-50 text-sm font-display italic">
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2 sm:p-3">
+                    <p className="text-amber-50 text-xs sm:text-sm font-display italic">
                       {photo.caption}
                     </p>
                   </div>
@@ -206,9 +206,9 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
                       e.stopPropagation();
                       handleDelete(photo.id);
                     }}
-                    className="absolute top-2 right-2 w-8 h-8 rounded-full bg-red-600/80 hover:bg-red-600 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-red-600/80 hover:bg-red-600 flex items-center justify-center opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
                   >
-                    <Trash2 className="w-4 h-4 text-white" />
+                    <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                   </button>
                 )}
               </motion.div>
@@ -231,10 +231,10 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
             <img
               src={selected.data}
               alt={selected.caption || "Foto de la boda"}
-              className="max-w-full max-h-[85vh] rounded-lg border border-amber-400/30"
+              className="max-w-full max-h-[80vh] sm:max-h-[85vh] rounded-lg border border-amber-400/30"
             />
             {selected.caption && (
-              <p className="text-center text-amber-100 mt-4 font-display italic text-lg">
+              <p className="text-center text-amber-100 mt-4 font-display italic text-sm sm:text-lg px-2">
                 {selected.caption}
               </p>
             )}
