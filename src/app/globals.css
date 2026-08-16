@@ -1,0 +1,318 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+  --font-display: var(--font-cormorant);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Custom wedding palette */
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --color-violet: var(--violet);
+  --color-violet-light: var(--violet-light);
+  --color-violet-dark: var(--violet-dark);
+  --color-charcoal: var(--charcoal);
+  --color-cream: var(--cream);
+  --color-ivory: var(--ivory);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* Wedding palette: negro, dorado, blanco, violeta */
+  --gold: #c9a227;
+  --gold-light: #e6c870;
+  --gold-dark: #9b7d18;
+  --violet: #6d28d9;
+  --violet-light: #a78bfa;
+  --violet-dark: #4c1d95;
+  --charcoal: #0a0a0a;
+  --cream: #f7f3ea;
+  --ivory: #fffbf2;
+
+  /* Background and foreground (dark elegant theme by default) */
+  --background: #0a0a0a;
+  --foreground: #f7f3ea;
+  --card: #141414;
+  --card-foreground: #f7f3ea;
+  --popover: #141414;
+  --popover-foreground: #f7f3ea;
+  --primary: #c9a227;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1f1f1f;
+  --secondary-foreground: #f7f3ea;
+  --muted: #1a1a1a;
+  --muted-foreground: #b8a878;
+  --accent: #6d28d9;
+  --accent-foreground: #f7f3ea;
+  --destructive: #b91c1c;
+  --border: rgba(201, 162, 39, 0.25);
+  --input: rgba(201, 162, 39, 0.25);
+  --ring: #c9a227;
+  --chart-1: #c9a227;
+  --chart-2: #6d28d9;
+  --chart-3: #a78bfa;
+  --chart-4: #e6c870;
+  --chart-5: #4c1d95;
+  --sidebar: #0f0f0f;
+  --sidebar-foreground: #f7f3ea;
+  --sidebar-primary: #c9a227;
+  --sidebar-primary-foreground: #0a0a0a;
+  --sidebar-accent: #6d28d9;
+  --sidebar-accent-foreground: #f7f3ea;
+  --sidebar-border: rgba(201, 162, 39, 0.25);
+  --sidebar-ring: #c9a227;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply text-foreground;
+    background-color: #0a0a0a;
+    background-image:
+      radial-gradient(at 20% 10%, rgba(109, 40, 217, 0.12) 0px, transparent 50%),
+      radial-gradient(at 80% 90%, rgba(201, 162, 39, 0.08) 0px, transparent 50%),
+      radial-gradient(at 50% 50%, rgba(109, 40, 217, 0.04) 0px, transparent 60%);
+    background-attachment: fixed;
+    font-family: var(--font-inter), sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-playfair), serif;
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .font-serif {
+    font-family: var(--font-playfair), serif;
+  }
+  .font-display {
+    font-family: var(--font-cormorant), serif;
+  }
+  .font-sans {
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .text-gold {
+    color: #c9a227;
+  }
+  .text-gold-light {
+    color: #e6c870;
+  }
+  .text-violet {
+    color: #a78bfa;
+  }
+  .bg-gold {
+    background-color: #c9a227;
+  }
+  .bg-charcoal {
+    background-color: #0a0a0a;
+  }
+  .bg-ivory {
+    background-color: #fffbf2;
+  }
+
+  /* Gold gradient text */
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #e6c870 0%, #c9a227 50%, #9b7d18 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Glass card */
+  .glass-card {
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(201, 162, 39, 0.2);
+  }
+
+  /* Gold border gradient */
+  .border-gold-gradient {
+    position: relative;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
+  .border-gold-gradient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, #c9a227, transparent, #6d28d9);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Shimmer effect for gold elements */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      #c9a227 0%,
+      #e6c870 25%,
+      #fff5d6 50%,
+      #e6c870 75%,
+      #c9a227 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 4s linear infinite;
+  }
+  @keyframes shimmer {
+    to {
+      background-position: 200% center;
+    }
+  }
+
+  /* Decorative gold divider with center diamond */
+  .gold-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: #c9a227;
+  }
+  .gold-divider::before,
+  .gold-divider::after {
+    content: "";
+    flex: 1;
+    max-width: 100px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #c9a227, transparent);
+  }
+
+  /* Smooth scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #c9a227, #6d28d9);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #e6c870, #a78bfa);
+  }
+}
+
+/* Floating petals animation */
+@keyframes float-up {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-10vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-gold {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px 5px rgba(201, 162, 39, 0.2);
+  }
+}
+.pulse-gold {
+  animation: pulse-gold 3s ease-in-out infinite;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-scale-in {
+  animation: scale-in 0.6s ease-out forwards;
+}
