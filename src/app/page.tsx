@@ -52,7 +52,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-8 px-4 text-center border-t border-amber-400/10">
         <p className="text-amber-100/40 text-xs tracking-widest uppercase font-sans">
-          {new Date().getFullYear()} · Con amor, María & Alejandro
+          {new Date().getFullYear()} · Con amor, Dariana & Walter
         </p>
       </footer>
 

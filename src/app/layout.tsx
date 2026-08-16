@@ -27,7 +27,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "María & Alejandro — Nuestra Boda",
+  title: "Dariana & Walter — Nuestra Boda",
   description: "Invitación de boda — Acompáñanos en este día tan especial.",
   icons: {
     icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",

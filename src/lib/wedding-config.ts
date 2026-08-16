@@ -11,12 +11,12 @@
 export const weddingConfig = {
   // 👰🤵 Nombres de los novios
   bride: {
-    name: "María Fernanda",
-    shortName: "María",
+    name: "Dariana",
+    shortName: "Dariana",
   },
   groom: {
-    name: "Alejandro",
-    shortName: "Alejandro",
+    name: "Walter",
+    shortName: "Walter",
   },
 
   // 📅 Fecha y hora de la boda (formato: YYYY-MM-DDTHH:mm:ss)
