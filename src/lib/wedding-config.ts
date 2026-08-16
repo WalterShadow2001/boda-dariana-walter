@@ -58,7 +58,7 @@ export const weddingConfig = {
 
   // 🔐 Contraseña del panel de administración (para subir fotos y ver RSVPs)
   // ¡Cambia esta contraseña por una que solo tú conozcas!
-  adminPassword: "boda2026",
+  adminPassword: "1303",
 
   // 📱 Texto del botón principal
   ctaText: "Confirmar Asistencia",

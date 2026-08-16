@@ -162,7 +162,7 @@ export function AdminPanel({
             </Button>
 
             <p className="text-[10px] sm:text-xs text-amber-100/40 text-center mt-4 px-2">
-              Contraseña por defecto: <span className="text-amber-300/70 font-mono">boda2026</span>
+              Contraseña por defecto: <span className="text-amber-300/70 font-mono">1303</span>
               <br />
               (cámbiala en <code className="text-amber-300/70">src/lib/wedding-config.ts</code>)
             </p>
