@@ -18,7 +18,7 @@ export function DecorativeDivider({ symbol = "✦", className = "" }: DividerPro
     >
       <div className="h-px w-16 sm:w-24 bg-gradient-to-r from-transparent to-amber-500/60" />
       <div className="relative">
-        <svg width="32" height="32" viewBox="0 0 32 32" className="text-amber-400">
+        <svg width="32" height="32" viewBox="0 0 32 32" className="text-amber-700">
           <g fill="none" stroke="currentColor" strokeWidth="1.2">
             <path d="M16 2 L18 14 L30 16 L18 18 L16 30 L14 18 L2 16 L14 14 Z" fill="currentColor" fillOpacity="0.2" />
             <circle cx="16" cy="16" r="2.5" fill="currentColor" />
@@ -33,7 +33,7 @@ export function DecorativeDivider({ symbol = "✦", className = "" }: DividerPro
 export function Monogram({ initials = "M&A" }: { initials?: string }) {
   return (
     <div className="relative inline-flex items-center justify-center">
-      <svg width="64" height="64" viewBox="0 0 80 80" className="text-amber-400 w-16 h-16 sm:w-20 sm:h-20">
+      <svg width="64" height="64" viewBox="0 0 80 80" className="text-amber-700 w-16 h-16 sm:w-20 sm:h-20">
         <circle cx="40" cy="40" r="38" fill="none" stroke="currentColor" strokeWidth="0.8" opacity="0.6" />
         <circle cx="40" cy="40" r="34" fill="none" stroke="currentColor" strokeWidth="0.4" opacity="0.4" />
         <text
@@ -56,7 +56,7 @@ export function FloralCorner({ className = "", flip = false }: { className?: str
   return (
     <svg
       viewBox="0 0 100 100"
-      className={`w-10 h-10 sm:w-16 sm:h-16 text-amber-400/40 ${flip ? "scale-x-[-1]" : ""} ${className}`}
+      className={`w-10 h-10 sm:w-16 sm:h-16 text-amber-700/40 ${flip ? "scale-x-[-1]" : ""} ${className}`}
       fill="none"
       stroke="currentColor"
       strokeWidth="0.8"

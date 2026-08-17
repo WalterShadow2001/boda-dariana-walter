@@ -58,49 +58,50 @@
 :root {
   --radius: 0.625rem;
 
-  /* Wedding palette: negro, dorado, blanco, violeta */
-  --gold: #c9a227;
-  --gold-light: #e6c870;
-  --gold-dark: #9b7d18;
+  /* Wedding palette: blanco, dorado (no amarillo), negro, violeta */
+  /* Dorado más profundo y elegante - tono champagne/oro viejo, no amarillo */
+  --gold: #b8860b;
+  --gold-light: #d4af37;
+  --gold-dark: #8b6914;
   --violet: #6d28d9;
   --violet-light: #a78bfa;
   --violet-dark: #4c1d95;
-  --charcoal: #0a0a0a;
-  --cream: #f7f3ea;
+  --charcoal: #1a1a1a;
+  --cream: #faf8f3;
   --ivory: #fffbf2;
 
-  /* Background and foreground (dark elegant theme by default) */
-  --background: #0a0a0a;
-  --foreground: #f7f3ea;
-  --card: #141414;
-  --card-foreground: #f7f3ea;
-  --popover: #141414;
-  --popover-foreground: #f7f3ea;
-  --primary: #c9a227;
-  --primary-foreground: #0a0a0a;
-  --secondary: #1f1f1f;
-  --secondary-foreground: #f7f3ea;
-  --muted: #1a1a1a;
-  --muted-foreground: #b8a878;
+  /* Background and foreground (light elegant theme) */
+  --background: #faf8f3;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --primary: #b8860b;
+  --primary-foreground: #ffffff;
+  --secondary: #f3efe5;
+  --secondary-foreground: #1a1a1a;
+  --muted: #f3efe5;
+  --muted-foreground: #8b6914;
   --accent: #6d28d9;
-  --accent-foreground: #f7f3ea;
+  --accent-foreground: #ffffff;
   --destructive: #b91c1c;
-  --border: rgba(201, 162, 39, 0.25);
-  --input: rgba(201, 162, 39, 0.25);
-  --ring: #c9a227;
-  --chart-1: #c9a227;
+  --border: rgba(184, 134, 11, 0.25);
+  --input: rgba(184, 134, 11, 0.2);
+  --ring: #b8860b;
+  --chart-1: #b8860b;
   --chart-2: #6d28d9;
   --chart-3: #a78bfa;
-  --chart-4: #e6c870;
+  --chart-4: #d4af37;
   --chart-5: #4c1d95;
-  --sidebar: #0f0f0f;
-  --sidebar-foreground: #f7f3ea;
-  --sidebar-primary: #c9a227;
-  --sidebar-primary-foreground: #0a0a0a;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1a1a1a;
+  --sidebar-primary: #b8860b;
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #6d28d9;
-  --sidebar-accent-foreground: #f7f3ea;
-  --sidebar-border: rgba(201, 162, 39, 0.25);
-  --sidebar-ring: #c9a227;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(184, 134, 11, 0.25);
+  --sidebar-ring: #b8860b;
 }
 
 @layer base {
@@ -113,11 +114,11 @@
   }
   body {
     @apply text-foreground;
-    background-color: #0a0a0a;
+    background-color: #faf8f3;
     background-image:
-      radial-gradient(at 20% 10%, rgba(109, 40, 217, 0.12) 0px, transparent 50%),
-      radial-gradient(at 80% 90%, rgba(201, 162, 39, 0.08) 0px, transparent 50%),
-      radial-gradient(at 50% 50%, rgba(109, 40, 217, 0.04) 0px, transparent 60%);
+      radial-gradient(at 20% 10%, rgba(109, 40, 217, 0.06) 0px, transparent 50%),
+      radial-gradient(at 80% 90%, rgba(184, 134, 11, 0.08) 0px, transparent 50%),
+      radial-gradient(at 50% 50%, rgba(109, 40, 217, 0.03) 0px, transparent 60%);
     background-attachment: fixed;
     font-family: var(--font-inter), sans-serif;
     overflow-x: hidden;
@@ -152,39 +153,40 @@
   }
 
   .text-gold {
-    color: #c9a227;
+    color: #b8860b;
   }
   .text-gold-light {
-    color: #e6c870;
+    color: #d4af37;
   }
   .text-violet {
-    color: #a78bfa;
+    color: #6d28d9;
   }
   .bg-gold {
-    background-color: #c9a227;
+    background-color: #b8860b;
   }
   .bg-charcoal {
-    background-color: #0a0a0a;
+    background-color: #1a1a1a;
   }
   .bg-ivory {
     background-color: #fffbf2;
   }
 
-  /* Gold gradient text */
+  /* Gold gradient text - dorado oscuro a claro, elegante no amarillo */
   .text-gold-gradient {
-    background: linear-gradient(135deg, #e6c870 0%, #c9a227 50%, #9b7d18 100%);
+    background: linear-gradient(135deg, #8b6914 0%, #b8860b 40%, #d4af37 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
 
-  /* Glass card */
+  /* Glass card - versión clara translúcida */
   .glass-card {
-    background: rgba(20, 20, 20, 0.6);
+    background: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(201, 162, 39, 0.2);
+    border: 1px solid rgba(184, 134, 11, 0.25);
+    box-shadow: 0 4px 24px -8px rgba(184, 134, 11, 0.15);
   }
 
   /* Gold border gradient */
@@ -199,7 +201,7 @@
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg, #c9a227, transparent, #6d28d9);
+    background: linear-gradient(135deg, #b8860b, transparent, #6d28d9);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -210,11 +212,11 @@
   .shimmer {
     background: linear-gradient(
       90deg,
-      #c9a227 0%,
-      #e6c870 25%,
-      #fff5d6 50%,
-      #e6c870 75%,
-      #c9a227 100%
+      #8b6914 0%,
+      #b8860b 25%,
+      #d4af37 50%,
+      #b8860b 75%,
+      #8b6914 100%
     );
     background-size: 200% auto;
     -webkit-background-clip: text;
@@ -234,7 +236,7 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    color: #c9a227;
+    color: #b8860b;
   }
   .gold-divider::before,
   .gold-divider::after {
@@ -242,7 +244,7 @@
     flex: 1;
     max-width: 100px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, #c9a227, transparent);
+    background: linear-gradient(90deg, transparent, #b8860b, transparent);
   }
 
   /* Smooth scroll */
@@ -265,14 +267,14 @@
     height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #0a0a0a;
+    background: #faf8f3;
   }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #c9a227, #6d28d9);
+    background: linear-gradient(180deg, #b8860b, #6d28d9);
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #e6c870, #a78bfa);
+    background: linear-gradient(180deg, #d4af37, #a78bfa);
   }
 }
 
@@ -296,10 +298,10 @@
 
 @keyframes pulse-gold {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.5);
+    box-shadow: 0 0 0 0 rgba(184, 134, 11, 0.4);
   }
   50% {
-    box-shadow: 0 0 20px 5px rgba(201, 162, 39, 0.2);
+    box-shadow: 0 0 20px 5px rgba(184, 134, 11, 0.15);
   }
 }
 .pulse-gold {

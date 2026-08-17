@@ -108,10 +108,10 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
           </h2>
           <div className="flex items-center justify-center gap-3 sm:gap-4 my-4 sm:my-6">
             <span className="h-px w-10 sm:w-16 bg-gradient-to-r from-transparent to-amber-500/60" />
-            <ImageIcon className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
+            <ImageIcon className="w-4 h-4 sm:w-5 sm:h-5 text-amber-700" />
             <span className="h-px w-10 sm:w-16 bg-gradient-to-l from-transparent to-amber-500/60" />
           </div>
-          <p className="text-amber-50/70 font-display text-sm sm:text-lg italic px-2">
+          <p className="text-stone-800/70 font-display text-sm sm:text-lg italic px-2">
             Compartimos con ustedes nuestros momentos más preciados
           </p>
         </motion.div>
@@ -120,10 +120,10 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 mt-6 sm:mt-8 mb-6 sm:mb-8 border-violet-500/30"
+            className="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 mt-6 sm:mt-8 mb-6 sm:mb-8 border-violet-600/30"
           >
-            <h3 className="font-serif text-lg sm:text-xl text-amber-100 mb-3 sm:mb-4 flex items-center gap-2">
-              <Upload className="w-4 h-4 sm:w-5 sm:h-5 text-violet-400" />
+            <h3 className="font-serif text-lg sm:text-xl text-stone-700 mb-3 sm:mb-4 flex items-center gap-2">
+              <Upload className="w-4 h-4 sm:w-5 sm:h-5 text-violet-700" />
               Subir nueva foto
             </h3>
             <div className="space-y-3 sm:space-y-4">
@@ -131,13 +131,13 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
                 type="file"
                 accept="image/*"
                 onChange={(e) => setFile(e.target.files?.[0] || null)}
-                className="bg-black/30 border-amber-400/30 text-amber-50 file:bg-amber-500/20 file:text-amber-200 file:border-0 file:rounded file:px-2 file:py-1 file:mr-2 file:font-sans text-xs sm:text-sm h-10 sm:h-11"
+                className="bg-white/70 border-amber-600/30 text-stone-800 file:bg-amber-500/20 file:text-amber-700 file:border-0 file:rounded file:px-2 file:py-1 file:mr-2 file:font-sans text-xs sm:text-sm h-10 sm:h-11"
               />
               <Input
                 value={caption}
                 onChange={(e) => setCaption(e.target.value)}
                 placeholder="Descripción (opcional)"
-                className="bg-black/30 border-amber-400/30 text-amber-50 placeholder:text-amber-100/30 font-display text-sm sm:text-base h-10 sm:h-11"
+                className="bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-sm sm:text-base h-10 sm:h-11"
               />
               <Button
                 onClick={handleUpload}
@@ -162,16 +162,16 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
 
         {loading ? (
           <div className="text-center py-12">
-            <Loader2 className="w-8 h-8 text-amber-400 animate-spin mx-auto" />
+            <Loader2 className="w-8 h-8 text-amber-700 animate-spin mx-auto" />
           </div>
         ) : photos.length === 0 ? (
           <div className="text-center py-12 glass-card rounded-xl sm:rounded-2xl">
-            <ImageIcon className="w-10 h-10 sm:w-12 sm:h-12 text-amber-400/30 mx-auto mb-3" />
-            <p className="text-amber-100/50 font-display text-base sm:text-lg italic px-2">
+            <ImageIcon className="w-10 h-10 sm:w-12 sm:h-12 text-amber-700/30 mx-auto mb-3" />
+            <p className="text-stone-700/50 font-display text-base sm:text-lg italic px-2">
               Aún no hay fotos compartidas
             </p>
             {adminPassword && (
-              <p className="text-amber-100/40 text-xs sm:text-sm mt-2">
+              <p className="text-stone-700/40 text-xs sm:text-sm mt-2">
                 Sube la primera foto desde el panel de arriba
               </p>
             )}
@@ -185,7 +185,7 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: (i % 6) * 0.05 }}
-                className="relative group break-inside-avoid mb-2 sm:mb-4 rounded-lg sm:rounded-xl overflow-hidden border border-amber-400/20 cursor-pointer"
+                className="relative group break-inside-avoid mb-2 sm:mb-4 rounded-lg sm:rounded-xl overflow-hidden border border-amber-600/20 cursor-pointer"
                 onClick={() => setSelected(photo)}
               >
                 <img
@@ -195,7 +195,7 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
                 />
                 {photo.caption && (
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2 sm:p-3">
-                    <p className="text-amber-50 text-xs sm:text-sm font-display italic">
+                    <p className="text-stone-800 text-xs sm:text-sm font-display italic">
                       {photo.caption}
                     </p>
                   </div>
@@ -231,10 +231,10 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
             <img
               src={selected.data}
               alt={selected.caption || "Foto de la boda"}
-              className="max-w-full max-h-[80vh] sm:max-h-[85vh] rounded-lg border border-amber-400/30"
+              className="max-w-full max-h-[80vh] sm:max-h-[85vh] rounded-lg border border-amber-600/30"
             />
             {selected.caption && (
-              <p className="text-center text-amber-100 mt-4 font-display italic text-sm sm:text-lg px-2">
+              <p className="text-center text-stone-700 mt-4 font-display italic text-sm sm:text-lg px-2">
                 {selected.caption}
               </p>
             )}
