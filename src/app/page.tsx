@@ -6,7 +6,6 @@ import {
   HeroSection,
   DetailsSection,
   LocationSection,
-  ScheduleSection,
   RsvpSection,
   ClosingSection,
 } from "@/components/wedding/sections";
@@ -37,9 +36,6 @@ export default function Home() {
       {/* Location with Google Maps */}
       <LocationSection />
 
-      {/* Schedule */}
-      <ScheduleSection />
-
       {/* RSVP form */}
       <RsvpSection />
 
@@ -50,8 +46,8 @@ export default function Home() {
       <ClosingSection />
 
       {/* Footer */}
-      <footer className="py-8 px-4 text-center border-t border-amber-400/10">
-        <p className="text-amber-100/40 text-xs tracking-widest uppercase font-sans">
+      <footer className="py-8 px-4 text-center border-t border-amber-600/10">
+        <p className="text-amber-700/50 text-xs tracking-widest uppercase font-sans">
           {new Date().getFullYear()} · Con amor, Dariana & Walter
         </p>
       </footer>
@@ -59,7 +55,6 @@ export default function Home() {
       {/* Admin lock button (desktop only) */}
       <AdminLockButton
         onClick={() => {
-          // When opening, we need to verify password first via AdminPanel
           setAdminOpen(true);
         }}
       />

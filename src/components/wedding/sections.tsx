@@ -74,13 +74,13 @@ export function HeroSection() {
           </motion.h1>
         </div>
 
-        <p className="text-stone-700/80 text-[11px] sm:text-base tracking-[0.15em] sm:tracking-widest uppercase font-sans px-2">
-          {formatDateLong(weddingDate)}
+        <p className="text-amber-700/80 text-[11px] sm:text-base tracking-[0.15em] sm:tracking-widest uppercase font-sans px-2">
+          {formatDateLong(weddingDate)} · {formatTime(weddingDate)} hrs
         </p>
 
         <DecorativeDivider className="mt-8 sm:mt-12" />
 
-        <p className="max-w-md text-stone-800/70 text-sm sm:text-lg font-display leading-relaxed italic px-1">
+        <p className="max-w-md text-stone-800/80 text-sm sm:text-lg font-display leading-relaxed italic px-1">
           {weddingConfig.invitationText}
         </p>
 
@@ -123,7 +123,7 @@ export function DetailsSection() {
     },
     {
       icon: Shirt,
-      label: "Código de vestimenta",
+      label: "Vestimenta",
       value: additionalInfo.dressCode,
     },
   ];
@@ -139,7 +139,7 @@ export function DetailsSection() {
           className="text-center"
         >
           <h2 className="text-3xl sm:text-5xl font-serif italic text-gold-gradient mb-2">
-            Detalles del Evento
+            La Cena
           </h2>
           <DecorativeDivider />
         </motion.div>
@@ -179,7 +179,7 @@ export function DetailsSection() {
           >
             <Gift className="shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-amber-600 mt-1" />
             <div>
-              <h3 className="font-serif text-lg sm:text-xl text-stone-700 mb-2">Mesa de regalos</h3>
+              <h3 className="font-serif text-lg sm:text-xl text-stone-700 mb-2">Un detalle opcional</h3>
               <p className="text-stone-800/70 font-display text-sm sm:text-lg leading-relaxed italic">
                 {additionalInfo.giftNote}
               </p>
@@ -202,19 +202,6 @@ export function LocationSection() {
     <section className="py-12 sm:py-20 px-4 sm:px-6 relative">
       <div className="max-w-4xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center"
-        >
-          <h2 className="text-3xl sm:text-5xl font-serif italic text-gold-gradient mb-2">
-            Ubicación
-          </h2>
-          <DecorativeDivider />
-        </motion.div>
-
-        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -223,7 +210,7 @@ export function LocationSection() {
         >
           <div className="text-center">
             <MapPin className="w-8 h-8 sm:w-10 sm:h-10 text-amber-700 mx-auto mb-3 sm:mb-4" />
-            <h3 className="text-xl sm:text-3xl font-serif text-stone-700 px-2">
+            <h3 className="text-xl sm:text-3xl font-serif text-stone-800 px-2">
               {venue.name}
             </h3>
             <p className="text-stone-800/70 font-display text-sm sm:text-lg mt-2 max-w-md mx-auto italic px-2">
@@ -252,59 +239,6 @@ export function LocationSection() {
             />
           </div>
         </motion.div>
-      </div>
-    </section>
-  );
-}
-
-export function ScheduleSection() {
-  const { schedule } = weddingConfig;
-
-  return (
-    <section className="py-12 sm:py-20 px-4 sm:px-6 relative">
-      <div className="max-w-3xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center"
-        >
-          <h2 className="text-3xl sm:text-5xl font-serif italic text-gold-gradient mb-2">
-            Orden del Día
-          </h2>
-          <DecorativeDivider />
-        </motion.div>
-
-        <div className="relative mt-8 sm:mt-12">
-          {/* Vertical line - left on mobile, center on desktop */}
-          <div className="absolute left-2 sm:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-amber-500/40 to-transparent" />
-
-          {schedule.map((item, i) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className={`relative mb-4 sm:mb-8 pl-8 sm:w-1/2 sm:pl-0 ${
-                i % 2 === 0 ? "sm:ml-0 sm:pr-8 sm:text-right" : "sm:ml-auto sm:pl-8"
-              }`}
-            >
-              {/* Dot */}
-              <div
-                className={`absolute top-3 w-3 h-3 rounded-full bg-amber-500 ring-4 ring-amber-500/20 left-1 ${
-                  i % 2 === 0 ? "sm:left-auto sm:right-[-7px]" : "sm:left-[-7px]"
-                }`}
-              />
-              <div className="glass-card rounded-lg sm:rounded-xl p-3 sm:p-4">
-                <div className="text-amber-600 font-serif text-xl sm:text-2xl">{item.time}</div>
-                <div className="text-stone-800 font-display text-base sm:text-lg mt-1">{item.title}</div>
-                <div className="text-stone-700/60 text-xs sm:text-sm mt-1">{item.description}</div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   );
@@ -357,7 +291,7 @@ export function RsvpSection() {
   };
 
   return (
-    <section id="rsvp" className="py-20 px-4 relative scroll-mt-10">
+    <section id="rsvp" className="py-12 sm:py-20 px-4 sm:px-6 relative scroll-mt-10">
       <div className="max-w-2xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -366,12 +300,12 @@ export function RsvpSection() {
           transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <h2 className="text-4xl sm:text-5xl font-serif italic text-gold-gradient mb-2">
-            Confirmación de Asistencia
+          <h2 className="text-3xl sm:text-5xl font-serif italic text-gold-gradient mb-2">
+            Confirmación
           </h2>
           <DecorativeDivider />
-          <p className="text-stone-800/70 font-display text-lg italic mt-4">
-            Por favor confirma tu asistencia antes del 1 de noviembre
+          <p className="text-stone-800/70 font-display text-sm sm:text-lg italic mt-4 px-2">
+            Por favor confirma antes del 1 de septiembre
           </p>
         </motion.div>
 
@@ -379,26 +313,26 @@ export function RsvpSection() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="glass-card rounded-3xl p-8 sm:p-12 mt-8 text-center"
+            className="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-12 mt-6 sm:mt-8 text-center"
           >
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-amber-500 to-violet-700 flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-amber-500 to-violet-700 flex items-center justify-center mx-auto mb-4">
               {done === "yes" ? (
-                <Check className="w-10 h-10 text-white" />
+                <Check className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
               ) : (
-                <X className="w-10 h-10 text-white" />
+                <X className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
               )}
             </div>
-            <h3 className="text-2xl font-serif text-stone-700 mb-2">
-              {done === "yes" ? "¡Nos emociona compartir este día contigo!" : "Gracias por avisarnos"}
+            <h3 className="text-xl sm:text-2xl font-serif text-stone-800 mb-2 px-2">
+              {done === "yes" ? "¡Nos emociona compartir esta noche contigo!" : "Gracias por avisarnos"}
             </h3>
-            <p className="text-stone-800/70 font-display text-lg italic">
+            <p className="text-stone-800/70 font-display text-base sm:text-lg italic px-2">
               {done === "yes"
                 ? `Hemos registrado tu confirmación, ${name.split(" ")[0]}.`
                 : "Te llevaremos en nuestros pensamientos."}
             </p>
             <Button
               variant="outline"
-              className="mt-6 border-amber-600/40 text-amber-700 hover:bg-amber-400/10"
+              className="mt-6 border-amber-600/40 text-amber-700 hover:bg-amber-400/10 h-11"
               onClick={() => {
                 setDone(null);
                 setName("");
@@ -416,10 +350,10 @@ export function RsvpSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="glass-card rounded-3xl p-6 sm:p-10 mt-8 space-y-6"
+            className="glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-10 mt-6 sm:mt-8 space-y-5 sm:space-y-6"
           >
             <div>
-              <Label htmlFor="name" className="text-amber-700/80 tracking-widest uppercase text-xs">
+              <Label htmlFor="name" className="text-amber-700/80 tracking-widest uppercase text-[10px] sm:text-xs">
                 Nombre completo
               </Label>
               <Input
@@ -427,22 +361,22 @@ export function RsvpSection() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Tu nombre y apellido"
-                className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-lg"
+                className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-base sm:text-lg h-11"
               />
             </div>
 
             <div>
-              <Label className="text-amber-700/80 tracking-widest uppercase text-xs">
+              <Label className="text-amber-700/80 tracking-widest uppercase text-[10px] sm:text-xs">
                 ¿Asistirás?
               </Label>
-              <div className="grid grid-cols-2 gap-3 mt-2">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3 mt-2">
                 <button
                   type="button"
                   onClick={() => setAttending(true)}
-                  className={`rounded-xl px-4 py-3 font-display text-lg border transition-all ${
+                  className={`rounded-lg sm:rounded-xl px-2 py-3 font-display text-sm sm:text-lg border transition-all ${
                     attending === true
                       ? "bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-500 shadow-lg shadow-amber-700/30"
-                      : "bg-white/70 border-amber-600/30 text-stone-700 hover:border-amber-600/60"
+                      : "bg-white/70 border-amber-600/30 text-stone-800 hover:border-amber-600/60"
                   }`}
                 >
                   ✓ Con gusto asistiré
@@ -450,10 +384,10 @@ export function RsvpSection() {
                 <button
                   type="button"
                   onClick={() => setAttending(false)}
-                  className={`rounded-xl px-4 py-3 font-display text-lg border transition-all ${
+                  className={`rounded-lg sm:rounded-xl px-2 py-3 font-display text-sm sm:text-lg border transition-all ${
                     attending === false
-                      ? "bg-gradient-to-r from-violet-600 to-violet-700 text-white border-violet-500 shadow-lg shadow-violet-700/30"
-                      : "bg-white/70 border-amber-600/30 text-stone-700 hover:border-amber-600/60"
+                      ? "bg-gradient-to-r from-violet-700 to-violet-800 text-white border-violet-500 shadow-lg shadow-violet-700/30"
+                      : "bg-white/70 border-amber-600/30 text-stone-800 hover:border-amber-600/60"
                   }`}
                 >
                   ✗ No podré asistir
@@ -466,25 +400,25 @@ export function RsvpSection() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
               >
-                <Label htmlFor="guests" className="text-amber-700/80 tracking-widest uppercase text-xs">
+                <Label htmlFor="guests" className="text-amber-700/80 tracking-widest uppercase text-[10px] sm:text-xs">
                   Número de invitados (incluyéndote)
                 </Label>
                 <div className="flex items-center gap-3 mt-2">
                   <Button
                     type="button"
                     variant="outline"
-                    className="border-amber-600/40 text-amber-700 hover:bg-amber-400/10 w-12 h-12"
+                    className="border-amber-600/40 text-amber-700 hover:bg-amber-400/10 w-11 h-11 sm:w-12 sm:h-12 shrink-0"
                     onClick={() => setGuests((g) => Math.max(1, g - 1))}
                   >
                     −
                   </Button>
-                  <div className="flex-1 text-center text-3xl font-serif text-amber-600">
+                  <div className="flex-1 text-center text-2xl sm:text-3xl font-serif text-amber-600">
                     {guests}
                   </div>
                   <Button
                     type="button"
                     variant="outline"
-                    className="border-amber-600/40 text-amber-700 hover:bg-amber-400/10 w-12 h-12"
+                    className="border-amber-600/40 text-amber-700 hover:bg-amber-400/10 w-11 h-11 sm:w-12 sm:h-12 shrink-0"
                     onClick={() => setGuests((g) => Math.min(20, g + 1))}
                   >
                     +
@@ -494,7 +428,7 @@ export function RsvpSection() {
             )}
 
             <div>
-              <Label htmlFor="msg" className="text-amber-700/80 tracking-widest uppercase text-xs">
+              <Label htmlFor="msg" className="text-amber-700/80 tracking-widest uppercase text-[10px] sm:text-xs">
                 Mensaje para los novios (opcional)
               </Label>
               <Textarea
@@ -502,14 +436,14 @@ export function RsvpSection() {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Escribe tus buenos deseos..."
-                className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-base min-h-[100px]"
+                className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-sm sm:text-base min-h-[90px]"
               />
             </div>
 
             <Button
               onClick={submit}
               disabled={loading}
-              className="w-full bg-gradient-to-r from-amber-700 via-amber-500 to-amber-700 hover:from-amber-600 hover:via-amber-400 hover:to-amber-500 text-white font-medium tracking-widest uppercase rounded-full py-6 text-base shadow-lg shadow-amber-700/20"
+              className="w-full bg-gradient-to-r from-amber-700 via-amber-500 to-amber-700 hover:from-amber-600 hover:via-amber-400 hover:to-amber-500 text-white font-medium tracking-widest uppercase rounded-full h-12 sm:h-14 text-sm sm:text-base shadow-lg shadow-amber-700/20"
             >
               {loading ? (
                 <>
@@ -529,7 +463,7 @@ export function RsvpSection() {
 
 export function ClosingSection() {
   return (
-    <section className="py-20 px-4 text-center">
+    <section className="py-12 sm:py-20 px-4 text-center">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -538,14 +472,14 @@ export function ClosingSection() {
         className="max-w-2xl mx-auto"
       >
         <FloralCorner className="mx-auto opacity-50" />
-        <DecorativeDivider className="my-8" />
-        <p className="font-display text-2xl sm:text-3xl text-stone-700/90 italic leading-relaxed">
+        <DecorativeDivider className="my-6 sm:my-8" />
+        <p className="font-display text-xl sm:text-3xl text-stone-800/90 italic leading-relaxed px-2">
           {weddingConfig.closingText}
         </p>
-        <p className="mt-6 text-amber-600/70 tracking-[0.3em] uppercase text-xs font-sans">
+        <p className="mt-6 text-amber-700/70 tracking-[0.25em] sm:tracking-[0.3em] uppercase text-[10px] sm:text-xs font-sans">
           {weddingConfig.bride.shortName} & {weddingConfig.groom.shortName}
         </p>
-        <DecorativeDivider className="my-8" />
+        <DecorativeDivider className="my-6 sm:my-8" />
       </motion.div>
     </section>
   );
