@@ -59,14 +59,6 @@ export const weddingConfig = {
   // ¡Cambia esta contraseña por una que solo tú conozcas!
   adminPassword: "1303",
 
-  // 📸 Clave pública de Uploadcare (OPCIONAL)
-  // Por defecto usa "demopublickey" que funciona pero las imágenes se borran tras 30 días.
-  // Para tener fotos PERMANENTES y sin límites:
-  //   1. Crea cuenta GRATIS en https://uploadcare.com
-  //   2. Ve a "Dashboard" → "API keys" → copia la "Public key" (empieza con "demopublickey" o similar)
-  //   3. Pégala aquí abajo:
-  uploadcarePublicKey: "demopublickey",
-
   // 📱 Texto del botón principal
   ctaText: "Confirmar Asistencia",
 

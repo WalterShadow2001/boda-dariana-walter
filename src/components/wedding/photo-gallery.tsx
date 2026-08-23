@@ -41,6 +41,43 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
     load();
   }, []);
 
+  // Comprime una imagen antes de subirla para que no ocupe tanto espacio
+  // Max ancho 1600px, calidad 0.85 - resulta en archivos de ~200-500KB
+  const compressImage = (file: File, maxWidth = 1600, quality = 0.85): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          // Calcular dimensiones manteniendo aspect ratio
+          let { width, height } = img;
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          if (!ctx) {
+            reject(new Error("No se pudo crear contexto de canvas"));
+            return;
+          }
+          ctx.drawImage(img, 0, 0, width, height);
+          // Usar JPEG para fotos (mejor compresión), PNG para transparencias
+          const isPng = file.type === "image/png";
+          const mime = isPng ? "image/png" : "image/jpeg";
+          const dataUrl = canvas.toDataURL(mime, quality);
+          resolve(dataUrl);
+        };
+        img.onerror = () => reject(new Error("No se pudo cargar la imagen"));
+        img.src = reader.result as string;
+      };
+      reader.onerror = () => reject(new Error("No se pudo leer el archivo"));
+      reader.readAsDataURL(file);
+    });
+  };
+
   const handleUpload = async () => {
     if (!file) {
       toast({ title: "Selecciona una imagen", variant: "destructive" });
@@ -53,26 +90,30 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
 
     setUploading(true);
     try {
-      const reader = new FileReader();
-      reader.onload = async () => {
-        const base64 = reader.result as string;
-        const res = await fetch("/api/photos", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-admin-password": adminPassword,
-          },
-          body: JSON.stringify({ data: base64, caption }),
-        });
-        if (!res.ok) throw new Error();
-        toast({ title: "Foto subida con éxito" });
-        setFile(null);
-        setCaption("");
-        load();
-      };
-      reader.readAsDataURL(file);
-    } catch {
-      toast({ title: "Error al subir la foto", variant: "destructive" });
+      // Comprimir imagen antes de subir
+      const compressed = await compressImage(file);
+      const res = await fetch("/api/photos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-password": adminPassword,
+        },
+        body: JSON.stringify({ data: compressed, caption }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Error al subir");
+      }
+      toast({ title: "Foto subida con éxito" });
+      setFile(null);
+      setCaption("");
+      load();
+    } catch (err) {
+      toast({
+        title: "Error al subir la foto",
+        description: err instanceof Error ? err.message : "",
+        variant: "destructive",
+      });
     } finally {
       setUploading(false);
     }

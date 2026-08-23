@@ -19,8 +19,9 @@ export async function GET() {
   }
 }
 
-// POST /api/photos - Subir foto a Uploadcare y guardar URL (requiere auth)
-// Sin límites: las imágenes se suben a la CDN de Uploadcare y se muestran automáticamente
+// POST /api/photos - Subir foto (requiere auth)
+// Las imágenes ya vienen comprimidas desde el cliente (máx 2MB)
+// Se guardan en la base de datos local - sin dependencias externas
 export async function POST(request: NextRequest) {
   const auth = request.headers.get("x-admin-password");
   if (auth !== weddingConfig.adminPassword) {
@@ -38,7 +39,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // La data viene como base64 data URL: data:image/png;base64,iVBOR...
+    // Verificar que sea un data URL válido
     const match = data.match(/^data:(.+?);base64,(.+)$/);
     if (!match) {
       return NextResponse.json(
@@ -47,70 +48,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const mimeType = match[1];
-    const base64Data = match[2];
-    const buffer = Buffer.from(base64Data, "base64");
-
-    // Límite: 100MB (límite de Uploadcare en plan demo)
-    if (buffer.length > 100 * 1024 * 1024) {
+    // Límite: 5MB por imagen (ya viene comprimida desde el cliente)
+    if (data.length > 7_000_000) {
       return NextResponse.json(
-        { error: "La imagen es demasiado grande (máx 100MB)" },
+        { error: "La imagen es demasiado grande. Máximo 5MB." },
         { status: 400 }
       );
     }
 
-    // Determinar extensión
-    const extMap: Record<string, string> = {
-      "image/jpeg": "jpg",
-      "image/jpg": "jpg",
-      "image/png": "png",
-      "image/gif": "gif",
-      "image/webp": "webp",
-      "image/bmp": "bmp",
-      "image/svg+xml": "svg",
-    };
-    const ext = extMap[mimeType] || "jpg";
-    const filename = `photo-${Date.now()}.${ext}`;
-
-    // Subir a Uploadcare (CDN gratuito, sin límites prácticos)
-    // Usamos la clave pública demo si no hay una configurada
-    const pubKey = weddingConfig.uploadcarePublicKey || "demopublickey";
-
-    const formData = new FormData();
-    formData.append("UPLOADCARE_PUB_KEY", pubKey);
-    formData.append("UPLOADCARE_STORE", "1");
-    const blob = new Blob([buffer], { type: mimeType });
-    formData.append("file", blob, filename);
-
-    const ucRes = await fetch("https://upload.uploadcare.com/base/", {
-      method: "POST",
-      body: formData,
-    });
-
-    if (!ucRes.ok) {
-      console.error("Uploadcare error:", await ucRes.text());
-      return NextResponse.json(
-        { error: "Error al subir al servicio de imágenes" },
-        { status: 502 }
-      );
-    }
-
-    const ucData = await ucRes.json() as { file?: string };
-    const fileId = ucData.file;
-    if (!fileId) {
-      return NextResponse.json(
-        { error: "Respuesta inválida del servicio de imágenes" },
-        { status: 502 }
-      );
-    }
-
-    // URL pública de la imagen en la CDN de Uploadcare
-    const publicUrl = `https://ucarecdn.com/${fileId}/`;
-
-    // Guardar solo la URL en la base de datos (sin la imagen pesada)
+    // Guardar directamente en la base de datos
+    // (Las imágenes ya llegan comprimidas desde el navegador)
     const photo = await db.photo.create({
       data: {
-        url: publicUrl,
+        url: data, // ahora guardamos el data URL directamente en url
         caption: caption?.trim() || null,
       },
     });
@@ -125,8 +75,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// DELETE /api/photos?id=xxx - Eliminar foto de la galería (requiere auth)
-// Nota: La imagen queda en la CDN de Uploadcare pero se quita de la galería
+// DELETE /api/photos?id=xxx - Eliminar foto (requiere auth)
 export async function DELETE(request: NextRequest) {
   const auth = request.headers.get("x-admin-password");
   if (auth !== weddingConfig.adminPassword) {
