@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 
 interface Photo {
   id: string;
-  data: string;
+  url: string;
   caption: string | null;
   createdAt: string;
 }
@@ -189,9 +189,10 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
                 onClick={() => setSelected(photo)}
               >
                 <img
-                  src={photo.data}
+                  src={photo.url}
                   alt={photo.caption || "Foto de la boda"}
                   className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
                 />
                 {photo.caption && (
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2 sm:p-3">
@@ -229,7 +230,7 @@ export function PhotoGallery({ adminPassword }: { adminPassword: string | null }
             className="relative max-w-5xl max-h-full"
           >
             <img
-              src={selected.data}
+              src={selected.url}
               alt={selected.caption || "Foto de la boda"}
               className="max-w-full max-h-[80vh] sm:max-h-[85vh] rounded-lg border border-amber-600/30"
             />

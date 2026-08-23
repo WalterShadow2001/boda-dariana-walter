@@ -21,7 +21,7 @@ model Rsvp {
 
 model Photo {
   id        String   @id @default(cuid())
-  data      String
+  url       String
   caption   String?
   createdAt DateTime @default(now())
 }
