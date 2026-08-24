@@ -23,5 +23,6 @@ model Photo {
   id        String   @id @default(cuid())
   url       String
   caption   String?
+  order     Int      @default(0)
   createdAt DateTime @default(now())
 }

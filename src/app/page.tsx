@@ -40,7 +40,7 @@ export default function Home() {
       <RsvpSection />
 
       {/* Photo gallery */}
-      <PhotoGallery adminPassword={adminPassword} />
+      <PhotoGallery />
 
       {/* Closing */}
       <ClosingSection />

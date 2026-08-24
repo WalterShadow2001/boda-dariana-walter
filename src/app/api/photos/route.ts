@@ -6,7 +6,7 @@ import { weddingConfig } from "@/lib/wedding-config";
 export async function GET() {
   try {
     const photos = await db.photo.findMany({
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ order: "asc" }, { createdAt: "desc" }],
       take: 500,
     });
     return NextResponse.json({ photos });
@@ -58,10 +58,17 @@ export async function POST(request: NextRequest) {
 
     // Guardar directamente en la base de datos
     // (Las imágenes ya llegan comprimidas desde el navegador)
+    // Obtener el próximo orden (al final de la galería)
+    const maxOrder = await db.photo.aggregate({
+      _max: { order: true },
+    });
+    const nextOrder = (maxOrder._max.order ?? -1) + 1;
+
     const photo = await db.photo.create({
       data: {
-        url: data, // ahora guardamos el data URL directamente en url
+        url: data, // guardamos el data URL directamente
         caption: caption?.trim() || null,
+        order: nextOrder,
       },
     });
 

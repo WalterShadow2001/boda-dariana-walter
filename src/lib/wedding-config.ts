@@ -20,7 +20,7 @@ export const weddingConfig = {
   },
 
   // 📅 Fecha y hora de la cena (formato: YYYY-MM-DDTHH:mm:ss)
-  weddingDate: "2026-09-05T20:00:00",
+  weddingDate: "2026-09-26T20:00:00",
 
   // 📍 Ubicación del evento
   venue: {
