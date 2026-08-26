@@ -51,4 +51,27 @@ prompt
 
 server.log
 # Skills directory
+/skills/db/custom.db
+scripts/test-*.ts
+scripts/init-turso.ts
+scripts/cleanup*.ts
+download/
+
+# Local DB y scripts de prueba
+/db/
+scripts/test-*
+scripts/init-turso.ts
+scripts/cleanup*
+download/
+.claude
+.z-ai-config
+.zscripts/
+*.log
+/db/
 /skills/
+/scripts/
+/mini-services/
+/zscripts/
+.claude
+tool-results/
+.z-ai-config/
