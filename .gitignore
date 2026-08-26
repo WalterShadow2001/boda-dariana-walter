@@ -75,3 +75,5 @@ download/
 .claude
 tool-results/
 .z-ai-config/
+tests/
+/tests/
