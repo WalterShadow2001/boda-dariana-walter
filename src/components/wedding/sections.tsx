@@ -154,7 +154,7 @@ export function DetailsSection() {
               transition={{ duration: 0.6, delay: i * 0.1 }}
               className="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 flex items-center gap-3 sm:gap-4 hover:border-amber-600/50 transition-colors"
             >
-              <div className="shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-amber-500/30 to-violet-600/30 flex items-center justify-center border border-amber-600/40">
+              <div className="shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-amber-500/30 to-amber-600/30 flex items-center justify-center border border-amber-600/40">
                 <item.icon className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600" />
               </div>
               <div className="min-w-0 flex-1">
@@ -315,7 +315,7 @@ export function RsvpSection() {
             animate={{ opacity: 1, scale: 1 }}
             className="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-12 mt-6 sm:mt-8 text-center"
           >
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-amber-500 to-violet-700 flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center mx-auto mb-4">
               {done === "yes" ? (
                 <Check className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
               ) : (
@@ -386,7 +386,7 @@ export function RsvpSection() {
                   onClick={() => setAttending(false)}
                   className={`rounded-lg sm:rounded-xl px-2 py-3 font-display text-sm sm:text-lg border transition-all ${
                     attending === false
-                      ? "bg-gradient-to-r from-violet-700 to-violet-800 text-white border-violet-500 shadow-lg shadow-violet-700/30"
+                      ? "bg-gradient-to-r from-amber-700 to-amber-800 text-white border-amber-500 shadow-lg shadow-amber-700/30"
                       : "bg-white/70 border-amber-600/30 text-stone-800 hover:border-amber-600/60"
                   }`}
                 >

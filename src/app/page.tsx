@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import {
   HeroSection,
@@ -11,14 +11,34 @@ import {
 } from "@/components/wedding/sections";
 import { PhotoGallery } from "@/components/wedding/photo-gallery";
 import { AdminPanel, AdminLockButton } from "@/components/wedding/admin-panel";
+import { EnvelopeIntro } from "@/components/wedding/envelope-intro";
+import { PhotoBackground } from "@/components/wedding/photo-background";
+
+interface Photo {
+  id: string;
+  url: string;
+  caption: string | null;
+  order: number;
+  createdAt: string;
+}
 
 export default function Home() {
   const [adminOpen, setAdminOpen] = useState(false);
   const [adminPassword, setAdminPassword] = useState<string | null>(null);
+  const [envelopeOpened, setEnvelopeOpened] = useState(false);
+  const [photos, setPhotos] = useState<Photo[]>([]);
+
+  // Cargar fotos para el fondo
+  useEffect(() => {
+    if (!envelopeOpened) return;
+    fetch("/api/photos")
+      .then((r) => r.json())
+      .then((data) => setPhotos(data.photos || []))
+      .catch(() => {});
+  }, [envelopeOpened]);
 
   const handleAdminClose = () => {
     setAdminOpen(false);
-    // keep adminPassword so user stays "logged in" for the photo gallery
   };
 
   const handleAdminVerified = (pwd: string) => {
@@ -26,48 +46,58 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen relative">
-      {/* Hero */}
-      <HeroSection />
+    <>
+      {/* Envelope intro */}
+      {!envelopeOpened && <EnvelopeIntro onOpen={() => setEnvelopeOpened(true)} />}
 
-      {/* Details */}
-      <DetailsSection />
+      {/* Photo background (only after envelope opened) */}
+      {envelopeOpened && photos.length > 0 && (
+        <PhotoBackground photos={photos} sectionsCount={5} />
+      )}
 
-      {/* Location with Google Maps */}
-      <LocationSection />
+      <main className="min-h-screen relative z-10">
+        {/* Hero */}
+        <HeroSection />
 
-      {/* RSVP form */}
-      <RsvpSection />
+        {/* Details */}
+        <DetailsSection />
 
-      {/* Photo gallery */}
-      <PhotoGallery />
+        {/* Location with Google Maps */}
+        <LocationSection />
 
-      {/* Closing */}
-      <ClosingSection />
+        {/* RSVP form */}
+        <RsvpSection />
 
-      {/* Footer */}
-      <footer className="py-8 px-4 text-center border-t border-amber-600/10">
-        <p className="text-amber-700/50 text-xs tracking-widest uppercase font-sans">
-          {new Date().getFullYear()} · Con amor, Dariana & Walter
-        </p>
-      </footer>
+        {/* Photo gallery */}
+        <PhotoGallery />
 
-      {/* Admin lock button (desktop only) */}
-      <AdminLockButton
-        onClick={() => {
-          setAdminOpen(true);
-        }}
-      />
+        {/* Closing */}
+        <ClosingSection />
 
-      {/* Admin panel */}
-      <AnimatePresence>
-        {adminOpen && (
-          <AdminPanel
-            onClose={handleAdminClose}
-            onVerified={handleAdminVerified}
-          />
-        )}
-      </AnimatePresence>
-    </main>
+        {/* Footer */}
+        <footer className="py-8 px-4 text-center border-t border-amber-600/10">
+          <p className="text-stone-800/50 text-xs tracking-widest uppercase font-sans">
+            {new Date().getFullYear()} · Con amor, Dariana & Walter
+          </p>
+        </footer>
+
+        {/* Admin lock button (desktop only) */}
+        <AdminLockButton
+          onClick={() => {
+            setAdminOpen(true);
+          }}
+        />
+
+        {/* Admin panel */}
+        <AnimatePresence>
+          {adminOpen && (
+            <AdminPanel
+              onClose={handleAdminClose}
+              onVerified={handleAdminVerified}
+            />
+          )}
+        </AnimatePresence>
+      </main>
+    </>
   );
 }

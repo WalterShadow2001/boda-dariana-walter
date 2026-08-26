@@ -279,7 +279,7 @@ export function AdminPanel({
             <ArrowLeft className="w-5 h-5" />
           </button>
 
-          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-amber-500 to-violet-700 flex items-center justify-center mx-auto mb-4 sm:mb-6 pulse-gold">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center mx-auto mb-4 sm:mb-6 pulse-gold">
             <Lock className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
           </div>
 
@@ -390,7 +390,7 @@ export function AdminPanel({
             <ImageIcon className="w-4 h-4 sm:w-5 sm:h-5" />
             <span>Fotos</span>
             {photos.length > 0 && (
-              <span className="ml-1 bg-violet-600/20 text-violet-700 text-xs px-1.5 py-0.5 rounded-full">
+              <span className="ml-1 bg-amber-600/20 text-amber-700 text-xs px-1.5 py-0.5 rounded-full">
                 {photos.length}
               </span>
             )}
@@ -402,9 +402,9 @@ export function AdminPanel({
           <>
             {/* Stats */}
             <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-8">
-              <div className="glass-card rounded-lg sm:rounded-2xl p-2.5 sm:p-5 text-center border-emerald-600/30">
-                <Check className="w-5 h-5 sm:w-7 sm:h-7 text-emerald-700 mx-auto mb-1 sm:mb-2" />
-                <div className="text-xl sm:text-4xl font-serif text-emerald-700 leading-none">{attending.length}</div>
+              <div className="glass-card rounded-lg sm:rounded-2xl p-2.5 sm:p-5 text-center border-amber-600/30">
+                <Check className="w-5 h-5 sm:w-7 sm:h-7 text-amber-700 mx-auto mb-1 sm:mb-2" />
+                <div className="text-xl sm:text-4xl font-serif text-amber-700 leading-none">{attending.length}</div>
                 <div className="text-[9px] sm:text-xs uppercase tracking-widest text-stone-700/60 mt-1">
                   Confirmados
                 </div>
@@ -416,9 +416,9 @@ export function AdminPanel({
                   Invitados
                 </div>
               </div>
-              <div className="glass-card rounded-lg sm:rounded-2xl p-2.5 sm:p-5 text-center border-rose-600/30">
-                <X className="w-5 h-5 sm:w-7 sm:h-7 text-rose-700 mx-auto mb-1 sm:mb-2" />
-                <div className="text-xl sm:text-4xl font-serif text-rose-700 leading-none">{notAttending.length}</div>
+              <div className="glass-card rounded-lg sm:rounded-2xl p-2.5 sm:p-5 text-center border-stone-700/30">
+                <X className="w-5 h-5 sm:w-7 sm:h-7 text-stone-800 mx-auto mb-1 sm:mb-2" />
+                <div className="text-xl sm:text-4xl font-serif text-stone-800 leading-none">{notAttending.length}</div>
                 <div className="text-[9px] sm:text-xs uppercase tracking-widest text-stone-700/60 mt-1">
                   No asistirán
                 </div>
@@ -448,7 +448,7 @@ export function AdminPanel({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 {/* Attending */}
                 <div>
-                  <h2 className="text-base sm:text-xl font-serif text-emerald-700 mb-3 sm:mb-4 flex items-center gap-2">
+                  <h2 className="text-base sm:text-xl font-serif text-amber-700 mb-3 sm:mb-4 flex items-center gap-2">
                     <Check className="w-4 h-4 sm:w-5 sm:h-5" />
                     Confirmados ({attending.length})
                   </h2>
@@ -459,12 +459,12 @@ export function AdminPanel({
                       attending.map((r) => (
                         <div
                           key={r.id}
-                          className="glass-card rounded-lg sm:rounded-xl p-3 sm:p-4 border-emerald-600/30"
+                          className="glass-card rounded-lg sm:rounded-xl p-3 sm:p-4 border-amber-600/30"
                         >
                           <div className="flex items-start justify-between gap-2">
                             <div className="min-w-0">
                               <div className="font-display text-sm sm:text-lg text-stone-800 truncate">{r.name}</div>
-                              <div className="text-xs sm:text-sm text-emerald-700/80">
+                              <div className="text-xs sm:text-sm text-amber-700/80">
                                 {r.guests} {r.guests === 1 ? "invitado" : "invitados"}
                               </div>
                             </div>
@@ -485,7 +485,7 @@ export function AdminPanel({
 
                 {/* Not attending */}
                 <div>
-                  <h2 className="text-base sm:text-xl font-serif text-rose-700 mb-3 sm:mb-4 flex items-center gap-2">
+                  <h2 className="text-base sm:text-xl font-serif text-stone-800 mb-3 sm:mb-4 flex items-center gap-2">
                     <X className="w-4 h-4 sm:w-5 sm:h-5" />
                     No asistirán ({notAttending.length})
                   </h2>
@@ -496,7 +496,7 @@ export function AdminPanel({
                       notAttending.map((r) => (
                         <div
                           key={r.id}
-                          className="glass-card rounded-lg sm:rounded-xl p-3 sm:p-4 border-rose-600/30"
+                          className="glass-card rounded-lg sm:rounded-xl p-3 sm:p-4 border-stone-700/30"
                         >
                           <div className="flex items-start justify-between gap-2">
                             <div className="font-display text-sm sm:text-lg text-stone-800 truncate min-w-0 flex-1">{r.name}</div>
@@ -522,9 +522,9 @@ export function AdminPanel({
         {activeTab === "photos" && (
           <>
             {/* Upload panel */}
-            <div className="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-6 border-violet-600/30">
+            <div className="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-6 border-amber-600/30">
               <h3 className="font-serif text-lg sm:text-xl text-stone-800 mb-3 sm:mb-4 flex items-center gap-2">
-                <Upload className="w-4 h-4 sm:w-5 sm:h-5 text-violet-700" />
+                <Upload className="w-4 h-4 sm:w-5 sm:h-5 text-amber-700" />
                 Subir nueva foto
               </h3>
               <div className="space-y-3 sm:space-y-4">
@@ -543,7 +543,7 @@ export function AdminPanel({
                 <Button
                   onClick={handleUpload}
                   disabled={uploading || !file}
-                  className="w-full bg-gradient-to-r from-violet-700 to-violet-800 hover:from-violet-600 hover:to-violet-700 text-white font-medium tracking-wider uppercase rounded-full h-11 text-xs sm:text-sm"
+                  className="w-full bg-gradient-to-r from-amber-700 to-amber-800 hover:from-amber-600 hover:to-amber-700 text-white font-medium tracking-wider uppercase rounded-full h-11 text-xs sm:text-sm"
                 >
                   {uploading ? (
                     <>
@@ -620,7 +620,7 @@ export function AdminPanel({
                     {/* Delete button */}
                     <button
                       onClick={() => handleDelete(photo.id)}
-                      className="absolute top-1 right-1 w-6 h-6 sm:w-7 sm:h-7 rounded bg-red-600/80 hover:bg-red-600 flex items-center justify-center opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
+                      className="absolute top-1 right-1 w-6 h-6 sm:w-7 sm:h-7 rounded bg-stone-900/80 hover:bg-stone-900 flex items-center justify-center opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
                       title="Eliminar"
                     >
                       <Trash2 className="w-3 h-3 sm:w-4 sm:h-4 text-white" />

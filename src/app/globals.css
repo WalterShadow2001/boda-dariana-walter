@@ -58,47 +58,45 @@
 :root {
   --radius: 0.625rem;
 
-  /* Wedding palette: blanco, dorado (no amarillo), negro, violeta */
-  /* Dorado más profundo y elegante - tono champagne/oro viejo, no amarillo */
+  /* Paleta: DORADO, BLANCO, NEGRO (solo estos tres) */
   --gold: #b8860b;
   --gold-light: #d4af37;
   --gold-dark: #8b6914;
-  --violet: #6d28d9;
-  --violet-light: #a78bfa;
-  --violet-dark: #4c1d95;
-  --charcoal: #1a1a1a;
+  --charcoal: #0a0a0a;
   --cream: #faf8f3;
   --ivory: #fffbf2;
+  --black: #0a0a0a;
+  --white: #ffffff;
 
-  /* Background and foreground (light elegant theme) */
+  /* Tema claro elegante */
   --background: #faf8f3;
-  --foreground: #1a1a1a;
+  --foreground: #0a0a0a;
   --card: #ffffff;
-  --card-foreground: #1a1a1a;
+  --card-foreground: #0a0a0a;
   --popover: #ffffff;
-  --popover-foreground: #1a1a1a;
+  --popover-foreground: #0a0a0a;
   --primary: #b8860b;
   --primary-foreground: #ffffff;
   --secondary: #f3efe5;
-  --secondary-foreground: #1a1a1a;
+  --secondary-foreground: #0a0a0a;
   --muted: #f3efe5;
   --muted-foreground: #8b6914;
-  --accent: #6d28d9;
+  --accent: #b8860b;
   --accent-foreground: #ffffff;
-  --destructive: #b91c1c;
+  --destructive: #0a0a0a;
   --border: rgba(184, 134, 11, 0.25);
   --input: rgba(184, 134, 11, 0.2);
   --ring: #b8860b;
   --chart-1: #b8860b;
-  --chart-2: #6d28d9;
-  --chart-3: #a78bfa;
-  --chart-4: #d4af37;
-  --chart-5: #4c1d95;
+  --chart-2: #0a0a0a;
+  --chart-3: #d4af37;
+  --chart-4: #8b6914;
+  --chart-5: #ffffff;
   --sidebar: #ffffff;
-  --sidebar-foreground: #1a1a1a;
+  --sidebar-foreground: #0a0a0a;
   --sidebar-primary: #b8860b;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #6d28d9;
+  --sidebar-accent: #b8860b;
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(184, 134, 11, 0.25);
   --sidebar-ring: #b8860b;
