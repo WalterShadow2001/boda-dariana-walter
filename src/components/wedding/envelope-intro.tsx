@@ -149,32 +149,6 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
                   style={{ background: "transparent" }}
                 />
 
-                {/* Envelope seal (wax seal effect) - usando button normal con onTouchStart */}
-                {!opening && (
-                  <motion.button
-                    onClick={handleOpen}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1, duration: 0.6, type: "spring" }}
-                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex flex-col items-center justify-center z-20 cursor-pointer group active:scale-95 transition-transform"
-                    style={{
-                      background: "radial-gradient(circle at 35% 35%, #d4af37 0%, #b8860b 60%, #8b6914 100%)",
-                      boxShadow: "0 8px 16px -4px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3)",
-                      WebkitTapHighlightColor: "transparent",
-                      touchAction: "manipulation",
-                    }}
-                    type="button"
-                    aria-label="Abrir invitación"
-                  >
-                    <span className="text-amber-50 font-serif italic text-lg sm:text-xl leading-none pointer-events-none">
-                      D&W
-                    </span>
-                    <span className="text-amber-100/70 text-[8px] sm:text-[9px] uppercase tracking-widest mt-0.5 pointer-events-none">
-                      Abrir
-                    </span>
-                  </motion.button>
-                )}
-
                 {/* Letter peeking out */}
                 <motion.div
                   className="absolute inset-x-4 top-3 bottom-3 bg-white rounded-sm shadow-inner overflow-hidden z-10"
@@ -246,6 +220,33 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
                   />
                 </svg>
               </motion.div>
+
+              {/* Sello dorado - DEBAJO del envelope body en el HTML pero con z-50
+                  para que quede POR ENCIMA de TODO (flap tiene z-30) */}
+              {!opening && (
+                <motion.button
+                  onClick={handleOpen}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1, duration: 0.6, type: "spring" }}
+                  className="absolute left-1/2 top-[90px] sm:top-[130px] -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex flex-col items-center justify-center z-50 cursor-pointer group active:scale-95 transition-transform"
+                  style={{
+                    background: "radial-gradient(circle at 35% 35%, #d4af37 0%, #b8860b 60%, #8b6914 100%)",
+                    boxShadow: "0 8px 16px -4px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3)",
+                    WebkitTapHighlightColor: "transparent",
+                    touchAction: "manipulation",
+                  }}
+                  type="button"
+                  aria-label="Abrir invitación"
+                >
+                  <span className="text-amber-50 font-serif italic text-lg sm:text-xl leading-none pointer-events-none">
+                    D&W
+                  </span>
+                  <span className="text-amber-100/70 text-[8px] sm:text-[9px] uppercase tracking-widest mt-0.5 pointer-events-none">
+                    Abrir
+                  </span>
+                </motion.button>
+              )}
             </motion.div>
           </div>
 
