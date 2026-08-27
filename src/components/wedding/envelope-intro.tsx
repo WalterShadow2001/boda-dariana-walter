@@ -165,7 +165,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
                     boxShadow: "inset 0 0 20px rgba(184, 134, 11, 0.1)",
                   }}
                 >
-                  <div className="p-4 sm:p-6 h-full flex flex-col items-center justify-center text-center">
+                  <div className="p-4 sm:p-6 h-full flex flex-col items-center justify-start text-center pt-2 sm:pt-3">
                     <Monogram initials="D&W" />
                     <p className="mt-3 text-stone-800 font-display italic text-xs sm:text-sm leading-tight">
                       {weddingConfig.bride.shortName} & {weddingConfig.groom.shortName}
@@ -229,7 +229,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1, duration: 0.6, type: "spring" }}
-                  className="absolute left-1/2 top-[90px] sm:top-[130px] -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex flex-col items-center justify-center z-50 cursor-pointer group active:scale-95 transition-transform"
+                  className="absolute left-1/2 top-[130px] sm:top-[190px] -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex flex-col items-center justify-center z-50 cursor-pointer group active:scale-95 transition-transform"
                   style={{
                     background: "radial-gradient(circle at 35% 35%, #d4af37 0%, #b8860b 60%, #8b6914 100%)",
                     boxShadow: "0 8px 16px -4px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3)",

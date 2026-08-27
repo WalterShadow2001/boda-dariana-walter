@@ -58,7 +58,7 @@ export function PhotoBackground({ photos, sectionsCount }: PhotoBackgroundProps)
         <motion.div
           key={currentIndex}
           initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 0.45, scale: 1 }}
+          animate={{ opacity: 0.65, scale: 1 }}
           exit={{ opacity: 0, scale: 1 }}
           transition={{ duration: 1.2, ease: "easeInOut" }}
           className="absolute inset-0"
@@ -67,17 +67,17 @@ export function PhotoBackground({ photos, sectionsCount }: PhotoBackgroundProps)
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
-            filter: "grayscale(0.15) contrast(1.05)",
+            filter: "grayscale(0.1) contrast(1.05)",
           }}
         />
       </AnimatePresence>
 
-      {/* Gradient overlay for readability - 85% transparente para que se vean las fotos */}
+      {/* Gradient overlay for readability - 70% transparente para que se vean más las fotos */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(250, 248, 243, 0.85) 0%, rgba(250, 248, 243, 0.78) 50%, rgba(250, 248, 243, 0.85) 100%)",
+            "linear-gradient(180deg, rgba(250, 248, 243, 0.72) 0%, rgba(250, 248, 243, 0.62) 50%, rgba(250, 248, 243, 0.72) 100%)",
         }}
       />
 
