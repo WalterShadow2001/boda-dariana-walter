@@ -167,7 +167,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
                 >
                   <div className="p-4 sm:p-6 h-full flex flex-col items-center justify-start text-center pt-2 sm:pt-3">
                     <Monogram initials="D&W" />
-                    <p className="mt-12 sm:mt-16 text-stone-800 font-display italic text-xs sm:text-sm leading-tight">
+                    <p className="mt-[110px] sm:mt-[150px] text-stone-800 font-display italic text-xs sm:text-sm leading-tight">
                       {weddingConfig.bride.shortName} & {weddingConfig.groom.shortName}
                     </p>
                     <div className="mt-2 w-8 h-px bg-amber-600/40" />
