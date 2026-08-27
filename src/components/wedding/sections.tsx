@@ -220,9 +220,11 @@ export function LocationSection() {
             <h3 className="text-xl sm:text-3xl font-serif text-stone-800 px-2">
               {loaded ? settings.venueName : "···"}
             </h3>
-            <p className="text-stone-800/70 font-display text-sm sm:text-lg mt-2 max-w-md mx-auto italic px-2">
-              {loaded ? settings.venueAddress : "···"}
-            </p>
+            {loaded && settings.venueAddress && settings.venueAddress.trim() && (
+              <p className="text-stone-800/70 font-display text-sm sm:text-lg mt-2 max-w-md mx-auto italic px-2">
+                {settings.venueAddress}
+              </p>
+            )}
 
             <Button
               onClick={openMaps}

@@ -9,7 +9,6 @@ import {
   RsvpSection,
   ClosingSection,
 } from "@/components/wedding/sections";
-import { PhotoGallery } from "@/components/wedding/photo-gallery";
 import { AdminPanel, AdminLockButton } from "@/components/wedding/admin-panel";
 import { EnvelopeIntro } from "@/components/wedding/envelope-intro";
 import { PhotoBackground } from "@/components/wedding/photo-background";
@@ -29,7 +28,7 @@ export default function Home() {
   const [contentVisible, setContentVisible] = useState(false);
   const [photos, setPhotos] = useState<Photo[]>([]);
 
-  // Cargar fotos para el fondo
+  // Cargar fotos para el fondo (las fotos se muestran como fondo, no como galería)
   useEffect(() => {
     fetch("/api/photos")
       .then((r) => r.json())
@@ -70,7 +69,7 @@ export default function Home() {
       {/* Envelope intro - siempre se renderiza arriba, se cierra al hacer click */}
       {!envelopeOpened && <EnvelopeIntro onOpen={() => setEnvelopeOpened(true)} />}
 
-      {/* Photo background (only after envelope opened) */}
+      {/* Photo background - las fotos se muestran como fondo cambiante con scroll */}
       {envelopeOpened && photos.length > 0 && (
         <PhotoBackground photos={photos} sectionsCount={5} />
       )}
@@ -94,9 +93,6 @@ export default function Home() {
 
         {/* RSVP form */}
         <RsvpSection />
-
-        {/* Photo gallery */}
-        <PhotoGallery />
 
         {/* Closing */}
         <ClosingSection />
