@@ -3,7 +3,6 @@ import { db } from "@/lib/db";
 import { weddingConfig } from "@/lib/wedding-config";
 
 // GET /api/settings - Obtener configuración (público)
-// Devuelve la configuración dinámica si existe, si no, los defaults del archivo
 export async function GET() {
   try {
     const settings = await db.setting.findMany();
@@ -12,7 +11,6 @@ export async function GET() {
       settingsMap[s.key] = s.value;
     }
 
-    // Combinar defaults con valores guardados
     const response = {
       weddingDate: settingsMap.weddingDate || weddingConfig.weddingDate,
       venueName: settingsMap.venueName || weddingConfig.venue.name,
@@ -25,7 +23,6 @@ export async function GET() {
     return NextResponse.json(response);
   } catch (error) {
     console.error("Error fetching settings:", error);
-    // Si hay error, devolver defaults
     return NextResponse.json({
       weddingDate: weddingConfig.weddingDate,
       venueName: weddingConfig.venue.name,
@@ -46,6 +43,8 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
+    console.log("Settings body received:", JSON.stringify(body).substring(0, 200));
+
     const {
       weddingDate,
       venueName,
@@ -53,7 +52,14 @@ export async function POST(request: NextRequest) {
       venueMapsUrl,
       venueLat,
       venueLng,
-    } = body;
+    } = body as {
+      weddingDate?: string;
+      venueName?: string;
+      venueAddress?: string;
+      venueMapsUrl?: string;
+      venueLat?: string;
+      venueLng?: string;
+    };
 
     // Validar fecha si se proporciona
     if (weddingDate && isNaN(Date.parse(weddingDate))) {
@@ -63,45 +69,57 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Si venueMapsUrl viene, extraer coordenadas automáticamente
-    let finalLat = venueLat;
-    let finalLng = venueLng;
-
-    if (venueMapsUrl && !venueLat) {
-      // Intentar extraer coordenadas de la URL de Google Maps
-      const coordMatch = venueMapsUrl.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
-      if (coordMatch) {
-        finalLat = coordMatch[1];
-        finalLng = coordMatch[2];
-      } else {
-        // Si no se pueden extraer, usar coordenadas por defecto
-        finalLat = weddingConfig.venue.lat.toString();
-        finalLng = weddingConfig.venue.lng.toString();
-      }
-    }
-
+    // Construir lista de campos a actualizar
     const updates: { key: string; value: string }[] = [];
+
     if (weddingDate) updates.push({ key: "weddingDate", value: weddingDate });
     if (venueName) updates.push({ key: "venueName", value: venueName });
     if (venueAddress) updates.push({ key: "venueAddress", value: venueAddress });
     if (venueMapsUrl) updates.push({ key: "venueMapsUrl", value: venueMapsUrl });
-    if (finalLat) updates.push({ key: "venueLat", value: finalLat });
-    if (finalLng) updates.push({ key: "venueLng", value: finalLng });
 
-    // Guardar cada setting (upsert)
-    for (const { key, value } of updates) {
-      await db.setting.upsert({
-        where: { key },
-        create: { key, value },
-        update: { value },
-      });
+    // Coordenadas: usar las que vienen, si no, mantener las existentes en DB
+    // o usar defaults del config
+    if (venueLat) {
+      updates.push({ key: "venueLat", value: String(venueLat) });
+    }
+    if (venueLng) {
+      updates.push({ key: "venueLng", value: String(venueLng) });
     }
 
-    return NextResponse.json({ success: true });
+    // Si hay URL de Maps pero no coordenadas, intentar extraerlas
+    if (venueMapsUrl && !venueLat) {
+      const coordMatch = venueMapsUrl.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+      if (coordMatch) {
+        updates.push({ key: "venueLat", value: coordMatch[1] });
+        updates.push({ key: "venueLng", value: coordMatch[2] });
+      }
+    }
+
+    console.log(`Updating ${updates.length} settings`);
+
+    // Guardar cada setting (upsert) secuencialmente
+    for (const { key, value } of updates) {
+      try {
+        await db.setting.upsert({
+          where: { key },
+          create: { key, value },
+          update: { value },
+        });
+        console.log(`  ✓ Saved ${key}`);
+      } catch (e) {
+        console.error(`  ✗ Error saving ${key}:`, e);
+        throw e;
+      }
+    }
+
+    return NextResponse.json({ success: true, updated: updates.length });
   } catch (error) {
     console.error("Error saving settings:", error);
     return NextResponse.json(
-      { error: "Error al guardar la configuración" },
+      {
+        error: "Error al guardar la configuración",
+        detail: error instanceof Error ? error.message : String(error),
+      },
       { status: 500 }
     );
   }
