@@ -81,7 +81,7 @@ export function PhotoGallery() {
               >
                 <img
                   src={photo.url}
-                  alt={photo.caption || "Foto de la boda"}
+                  alt={photo.caption || "Foto de la cena"}
                   className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
@@ -111,7 +111,7 @@ export function PhotoGallery() {
           >
             <img
               src={selected.url}
-              alt={selected.caption || "Foto de la boda"}
+              alt={selected.caption || "Foto de la cena"}
               className="max-w-full max-h-[80vh] sm:max-h-[85vh] rounded-lg border border-amber-600/30"
             />
             {selected.caption && (

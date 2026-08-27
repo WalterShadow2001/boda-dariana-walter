@@ -312,7 +312,7 @@ export function AdminPanel({
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "confirmaciones-boda.csv";
+    a.download = "confirmaciones-cena.csv";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -381,10 +381,6 @@ export function AdminPanel({
                 </>
               )}
             </Button>
-
-            <p className="text-[10px] sm:text-xs text-stone-700/40 text-center mt-4 px-2">
-              Contraseña: <span className="text-amber-600/70 font-mono">1303</span>
-            </p>
           </div>
         </motion.div>
       </motion.div>

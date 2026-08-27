@@ -28,7 +28,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Dariana & Walter — Cena de Celebración",
-  description: "Nos casamos — Acompáñanos a celebrar en una cena especial.",
+  description: "Nos casamos por lo civil — Acompáñanos a una cena para celebrar.",
   icons: {
     icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
   },

@@ -34,11 +34,11 @@ export const weddingConfig = {
   },
 
   // 🕊️ Frase principal que aparece bajo los nombres
-  tagline: "¡Nos casamos! Celebremos juntos",
+  tagline: "¡Celebramos nuestra boda civil!",
 
   // 💌 Texto de invitación (párrafo principal)
   invitationText:
-    "Con mucha alegría queremos compartir que dimos el sí. Nos encantaría que nos acompañes a brindar por esta nueva etapa de nuestras vidas en una cena entre amigos y familiares queridos.",
+    "Con mucha alegría queremos compartir que ya nos casamos por lo civil. Nos encantaría que nos acompañes a una cena para celebrar esta nueva etapa, entre amigos y familiares queridos.",
 
   // 🍽️ Orden de la noche / Itinerario
   schedule: [
@@ -57,7 +57,7 @@ export const weddingConfig = {
 
   // 🔐 Contraseña del panel de administración (para subir fotos y ver confirmaciones)
   // ¡Cambia esta contraseña por una que solo tú conozcas!
-  adminPassword: "1303",
+  adminPassword: "2303",
 
   // 📱 Texto del botón principal
   ctaText: "Confirmar Asistencia",
