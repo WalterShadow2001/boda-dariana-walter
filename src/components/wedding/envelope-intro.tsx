@@ -32,10 +32,11 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
 
   const handleOpen = () => {
     setOpening(true);
+    // Esperar a que termine la animación del sobre (2.5s) + transición suave (1.5s)
     setTimeout(() => {
       setVisible(false);
       onOpen();
-    }, 2200);
+    }, 2500);
   };
 
   if (!visible) return null;
@@ -45,7 +46,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
       <motion.div
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 1.5, ease: "easeInOut" }}
         className="fixed inset-0 z-[100] flex items-center justify-center p-4"
         style={{
           background: "radial-gradient(circle at 50% 50%, #1a1a1a 0%, #0a0a0a 100%)",

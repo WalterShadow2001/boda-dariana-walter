@@ -16,6 +16,10 @@ import {
   GripVertical,
   ArrowUp,
   ArrowDown,
+  Settings,
+  Calendar,
+  MapPin,
+  Save,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,7 +43,16 @@ interface Photo {
   createdAt: string;
 }
 
-type Tab = "rsvps" | "photos";
+interface Settings {
+  weddingDate: string;
+  venueName: string;
+  venueAddress: string;
+  venueMapsUrl: string;
+  venueLat: string;
+  venueLng: string;
+}
+
+type Tab = "rsvps" | "photos" | "settings";
 
 export function AdminPanel({
   onClose,
@@ -66,6 +79,10 @@ export function AdminPanel({
   const [uploading, setUploading] = useState(false);
   const [reordering, setReordering] = useState<string | null>(null);
 
+  // Settings state
+  const [settingsForm, setSettingsForm] = useState<Settings | null>(null);
+  const [savingSettings, setSavingSettings] = useState(false);
+
   const verify = async () => {
     if (!password) {
       toast({ title: "Ingresa la contraseña", variant: "destructive" });
@@ -85,7 +102,7 @@ export function AdminPanel({
       setVerified(true);
       onVerified?.(password);
       toast({ title: "Acceso concedido" });
-      await Promise.all([loadRsvps(password), loadPhotos()]);
+      await Promise.all([loadRsvps(password), loadPhotos(), loadSettings()]);
     } catch {
       toast({ title: "Error al verificar", variant: "destructive" });
     } finally {
@@ -118,6 +135,46 @@ export function AdminPanel({
       // ignore
     } finally {
       setLoadingPhotos(false);
+    }
+  };
+
+  const loadSettings = async () => {
+    try {
+      const res = await fetch("/api/settings");
+      const data = await res.json();
+      setSettingsForm(data);
+    } catch {
+      // ignore
+    }
+  };
+
+  const saveSettings = async () => {
+    if (!settingsForm) return;
+    setSavingSettings(true);
+    try {
+      const res = await fetch("/api/settings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-password": password,
+        },
+        body: JSON.stringify(settingsForm),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Error al guardar");
+      }
+      toast({ title: "✓ Configuración guardada" });
+      // Recargar para confirmar
+      await loadSettings();
+    } catch (err) {
+      toast({
+        title: "Error al guardar",
+        description: err instanceof Error ? err.message : "",
+        variant: "destructive",
+      });
+    } finally {
+      setSavingSettings(false);
     }
   };
 
@@ -395,6 +452,17 @@ export function AdminPanel({
               </span>
             )}
           </button>
+          <button
+            onClick={() => setActiveTab("settings")}
+            className={`flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-3 font-display text-sm sm:text-base border-b-2 transition-all ${
+              activeTab === "settings"
+                ? "border-amber-600 text-amber-700"
+                : "border-transparent text-stone-700/60 hover:text-stone-800"
+            }`}
+          >
+            <Settings className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span>Configuración</span>
+          </button>
         </div>
 
         {/* Tab content */}
@@ -635,9 +703,142 @@ export function AdminPanel({
             )}
           </>
         )}
+
+        {activeTab === "settings" && (
+          <>
+            <div className="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 border-amber-600/30">
+              <h3 className="font-serif text-lg sm:text-xl text-stone-800 mb-3 sm:mb-4 flex items-center gap-2">
+                <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-amber-700" />
+                Configuración del evento
+              </h3>
+              <p className="text-xs sm:text-sm text-stone-700/60 mb-4 sm:mb-6 font-display italic">
+                Cambia la fecha, hora y lugar de la cena. Los cambios se reflejan inmediatamente en la invitación.
+              </p>
+
+              {!settingsForm ? (
+                <div className="text-center py-8">
+                  <Loader2 className="w-6 h-6 text-amber-700 animate-spin mx-auto" />
+                </div>
+              ) : (
+                <div className="space-y-4 sm:space-y-5">
+                  {/* Fecha y hora */}
+                  <div>
+                    <Label className="text-amber-700/80 tracking-widest uppercase text-[10px] sm:text-xs flex items-center gap-1.5">
+                      <Calendar className="w-3 h-3" />
+                      Fecha y hora de la cena
+                    </Label>
+                    <Input
+                      type="datetime-local"
+                      value={toLocalDatetimeInput(settingsForm.weddingDate)}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (!value) return;
+                        // Convertir de datetime-local (YYYY-MM-DDTHH:mm) a ISO string
+                        const isoDate = new Date(value).toISOString();
+                        setSettingsForm({ ...settingsForm, weddingDate: isoDate });
+                      }}
+                      className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 font-display text-sm sm:text-base h-10 sm:h-11"
+                    />
+                    <p className="text-[10px] sm:text-xs text-stone-700/50 mt-1">
+                      Formato: AAAA-MM-DD HH:MM (24 hrs)
+                    </p>
+                  </div>
+
+                  {/* Nombre del lugar */}
+                  <div>
+                    <Label className="text-amber-700/80 tracking-widest uppercase text-[10px] sm:text-xs flex items-center gap-1.5">
+                      <MapPin className="w-3 h-3" />
+                      Nombre del lugar
+                    </Label>
+                    <Input
+                      value={settingsForm.venueName}
+                      onChange={(e) => setSettingsForm({ ...settingsForm, venueName: e.target.value })}
+                      placeholder="Ej: Restaurante San Ángel"
+                      className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-sm sm:text-base h-10 sm:h-11"
+                    />
+                  </div>
+
+                  {/* Dirección */}
+                  <div>
+                    <Label className="text-amber-700/80 tracking-widest uppercase text-[10px] sm:text-xs flex items-center gap-1.5">
+                      <MapPin className="w-3 h-3" />
+                      Dirección
+                    </Label>
+                    <Input
+                      value={settingsForm.venueAddress}
+                      onChange={(e) => setSettingsForm({ ...settingsForm, venueAddress: e.target.value })}
+                      placeholder="Calle, número, colonia, ciudad"
+                      className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-sm sm:text-base h-10 sm:h-11"
+                    />
+                  </div>
+
+                  {/* URL de Google Maps */}
+                  <div>
+                    <Label className="text-amber-700/80 tracking-widest uppercase text-[10px] sm:text-xs flex items-center gap-1.5">
+                      <MapPin className="w-3 h-3" />
+                      Enlace de Google Maps
+                    </Label>
+                    <Input
+                      value={settingsForm.venueMapsUrl}
+                      onChange={(e) => setSettingsForm({ ...settingsForm, venueMapsUrl: e.target.value })}
+                      placeholder="https://www.google.com/maps/place/..."
+                      className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-mono text-xs sm:text-sm h-10 sm:h-11"
+                    />
+                    <p className="text-[10px] sm:text-xs text-stone-700/50 mt-1">
+                      Tip: Busca el lugar en Google Maps, click en "Compartir" → "Copiar enlace" y pégalo aquí. Las coordenadas se detectan automáticamente del enlace.
+                    </p>
+                  </div>
+
+                  {/* Vista previa del mapa */}
+                  {settingsForm.venueMapsUrl && (
+                    <div className="rounded-lg overflow-hidden border border-amber-600/20 aspect-video bg-stone-100">
+                      <iframe
+                        title="Vista previa"
+                        src={`https://www.google.com/maps?q=${encodeURIComponent(settingsForm.venueName || settingsForm.venueAddress)}&z=15&output=embed`}
+                        className="w-full h-full"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+
+                  {/* Botón guardar */}
+                  <Button
+                    onClick={saveSettings}
+                    disabled={savingSettings}
+                    className="w-full bg-gradient-to-r from-amber-700 to-amber-800 hover:from-amber-600 hover:to-amber-700 text-white font-medium tracking-wider uppercase rounded-full h-11 text-xs sm:text-sm"
+                  >
+                    {savingSettings ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Guardando...
+                      </>
+                    ) : (
+                      <>
+                        <Save className="w-4 h-4 mr-2" />
+                        Guardar cambios
+                      </>
+                    )}
+                  </Button>
+                </div>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </motion.div>
   );
+}
+
+// Helper: convertir ISO string a formato YYYY-MM-DDTHH:mm para input datetime-local
+function toLocalDatetimeInput(isoString: string): string {
+  try {
+    const d = new Date(isoString);
+    const tzOffset = d.getTimezoneOffset() * 60000; // offset en ms
+    const local = new Date(d.getTime() - tzOffset);
+    return local.toISOString().slice(0, 16);
+  } catch {
+    return "";
+  }
 }
 
 export function AdminLockButton({ onClick }: { onClick: () => void }) {

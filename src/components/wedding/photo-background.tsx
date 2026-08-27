@@ -58,7 +58,7 @@ export function PhotoBackground({ photos, sectionsCount }: PhotoBackgroundProps)
         <motion.div
           key={currentIndex}
           initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 0.18, scale: 1 }}
+          animate={{ opacity: 0.45, scale: 1 }}
           exit={{ opacity: 0, scale: 1 }}
           transition={{ duration: 1.2, ease: "easeInOut" }}
           className="absolute inset-0"
@@ -67,25 +67,25 @@ export function PhotoBackground({ photos, sectionsCount }: PhotoBackgroundProps)
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
-            filter: "grayscale(0.3) contrast(1.05)",
+            filter: "grayscale(0.15) contrast(1.05)",
           }}
         />
       </AnimatePresence>
 
-      {/* Gradient overlay for readability */}
+      {/* Gradient overlay for readability - 85% transparente para que se vean las fotos */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(250, 248, 243, 0.85) 0%, rgba(250, 248, 243, 0.75) 50%, rgba(250, 248, 243, 0.85) 100%)",
+            "linear-gradient(180deg, rgba(250, 248, 243, 0.85) 0%, rgba(250, 248, 243, 0.78) 50%, rgba(250, 248, 243, 0.85) 100%)",
         }}
       />
 
-      {/* Vignette effect */}
+      {/* Vignette effect - muy sutil */}
       <div
         className="absolute inset-0"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 30%, rgba(10, 10, 10, 0.15) 100%)",
+          background: "radial-gradient(ellipse at center, transparent 40%, rgba(10, 10, 10, 0.08) 100%)",
         }}
       />
 

@@ -27,3 +27,10 @@ model Photo {
   order     Int      @default(0)
   createdAt DateTime @default(now())
 }
+
+model Setting {
+  id        String   @id @default("singleton")
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}

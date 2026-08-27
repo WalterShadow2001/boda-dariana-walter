@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Calendar, Clock, Shirt, Gift, Check, X, Loader2 } from "lucide-react";
 import { weddingConfig } from "@/lib/wedding-config";
+import { useSettings } from "@/hooks/use-settings";
 import { DecorativeDivider, Monogram, FloralCorner } from "./decorative";
 import { Countdown } from "./countdown";
 import { useToast } from "@/hooks/use-toast";
@@ -31,7 +32,9 @@ function formatTime(dateStr: string) {
 }
 
 export function HeroSection() {
-  const { bride, groom, weddingDate, tagline } = weddingConfig;
+  const { bride, groom, tagline } = weddingConfig;
+  const { settings, loaded } = useSettings();
+  const weddingDate = settings.weddingDate;
 
   return (
     <section className="relative min-h-[100svh] flex flex-col items-center justify-center px-5 py-16 sm:py-20 text-center overflow-hidden">
@@ -75,7 +78,7 @@ export function HeroSection() {
         </div>
 
         <p className="text-amber-700/80 text-[11px] sm:text-base tracking-[0.15em] sm:tracking-widest uppercase font-sans px-2">
-          {formatDateLong(weddingDate)} · {formatTime(weddingDate)} hrs
+          {loaded ? `${formatDateLong(weddingDate)} · ${formatTime(weddingDate)} hrs` : "···"}
         </p>
 
         <DecorativeDivider className="mt-8 sm:mt-12" />
@@ -104,22 +107,24 @@ export function HeroSection() {
 }
 
 export function DetailsSection() {
-  const { weddingDate, venue, additionalInfo } = weddingConfig;
+  const { additionalInfo } = weddingConfig;
+  const { settings, loaded } = useSettings();
+
   const items = [
     {
       icon: Calendar,
       label: "Cuándo",
-      value: formatDateLong(weddingDate),
+      value: loaded ? formatDateLong(settings.weddingDate) : "···",
     },
     {
       icon: Clock,
       label: "Hora",
-      value: `${formatTime(weddingDate)} hrs`,
+      value: loaded ? `${formatTime(settings.weddingDate)} hrs` : "···",
     },
     {
       icon: MapPin,
       label: "Dónde",
-      value: venue.name,
+      value: loaded ? settings.venueName : "···",
     },
     {
       icon: Shirt,
@@ -192,10 +197,12 @@ export function DetailsSection() {
 }
 
 export function LocationSection() {
-  const { venue } = weddingConfig;
+  const { settings, loaded } = useSettings();
 
   const openMaps = () => {
-    window.open(venue.mapsUrl, "_blank", "noopener,noreferrer");
+    if (settings.venueMapsUrl) {
+      window.open(settings.venueMapsUrl, "_blank", "noopener,noreferrer");
+    }
   };
 
   return (
@@ -211,10 +218,10 @@ export function LocationSection() {
           <div className="text-center">
             <MapPin className="w-8 h-8 sm:w-10 sm:h-10 text-amber-700 mx-auto mb-3 sm:mb-4" />
             <h3 className="text-xl sm:text-3xl font-serif text-stone-800 px-2">
-              {venue.name}
+              {loaded ? settings.venueName : "···"}
             </h3>
             <p className="text-stone-800/70 font-display text-sm sm:text-lg mt-2 max-w-md mx-auto italic px-2">
-              {venue.address}
+              {loaded ? settings.venueAddress : "···"}
             </p>
 
             <Button
@@ -228,16 +235,18 @@ export function LocationSection() {
           </div>
 
           {/* Embedded map preview */}
-          <div className="mt-6 sm:mt-8 rounded-xl sm:rounded-2xl overflow-hidden border border-amber-600/20 aspect-video">
-            <iframe
-              title="Ubicación del evento"
-              src={`https://www.google.com/maps?q=${venue.lat},${venue.lng}&z=15&output=embed`}
-              className="w-full h-full"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              style={{ filter: "saturate(0.9)" }}
-            />
-          </div>
+          {loaded && (
+            <div className="mt-6 sm:mt-8 rounded-xl sm:rounded-2xl overflow-hidden border border-amber-600/20 aspect-video">
+              <iframe
+                title="Ubicación del evento"
+                src={`https://www.google.com/maps?q=${settings.venueLat},${settings.venueLng}&z=15&output=embed`}
+                className="w-full h-full"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                style={{ filter: "saturate(0.9)" }}
+              />
+            </div>
+          )}
         </motion.div>
       </div>
     </section>

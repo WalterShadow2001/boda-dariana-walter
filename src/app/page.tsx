@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   HeroSection,
   DetailsSection,
@@ -26,15 +26,19 @@ export default function Home() {
   const [adminOpen, setAdminOpen] = useState(false);
   const [adminPassword, setAdminPassword] = useState<string | null>(null);
   const [envelopeOpened, setEnvelopeOpened] = useState(false);
+  const [contentVisible, setContentVisible] = useState(false);
   const [photos, setPhotos] = useState<Photo[]>([]);
 
   // Cargar fotos para el fondo
   useEffect(() => {
     if (!envelopeOpened) return;
+    // Fade-in del contenido después de que el sobre se cierre
+    const t = setTimeout(() => setContentVisible(true), 100);
     fetch("/api/photos")
       .then((r) => r.json())
       .then((data) => setPhotos(data.photos || []))
       .catch(() => {});
+    return () => clearTimeout(t);
   }, [envelopeOpened]);
 
   const handleAdminClose = () => {
@@ -55,7 +59,12 @@ export default function Home() {
         <PhotoBackground photos={photos} sectionsCount={5} />
       )}
 
-      <main className="min-h-screen relative z-10">
+      <motion.main
+        initial={{ opacity: 0 }}
+        animate={{ opacity: contentVisible ? 1 : 0 }}
+        transition={{ duration: 1.5, ease: "easeInOut", delay: 0.3 }}
+        className="min-h-screen relative z-10"
+      >
         {/* Hero */}
         <HeroSection />
 
@@ -97,7 +106,7 @@ export default function Home() {
             />
           )}
         </AnimatePresence>
-      </main>
+      </motion.main>
     </>
   );
 }
