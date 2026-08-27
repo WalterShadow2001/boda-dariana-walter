@@ -31,15 +31,31 @@ export default function Home() {
 
   // Cargar fotos para el fondo
   useEffect(() => {
-    if (!envelopeOpened) return;
-    // Fade-in del contenido después de que el sobre se cierre
-    const t = setTimeout(() => setContentVisible(true), 100);
     fetch("/api/photos")
       .then((r) => r.json())
       .then((data) => setPhotos(data.photos || []))
       .catch(() => {});
-    return () => clearTimeout(t);
+  }, []);
+
+  // Cuando el sobre se abre, mostrar el contenido con animación
+  useEffect(() => {
+    if (envelopeOpened) {
+      const t = setTimeout(() => setContentVisible(true), 100);
+      return () => clearTimeout(t);
+    }
   }, [envelopeOpened]);
+
+  // Seguridad: si después de 6 segundos el sobre no se ha abierto, mostrar el contenido de todos modos
+  // Esto previene que si el sobre falla, el usuario se quede viendo una página en blanco
+  useEffect(() => {
+    const t = setTimeout(() => {
+      if (!envelopeOpened) {
+        setEnvelopeOpened(true);
+        setContentVisible(true);
+      }
+    }, 6000);
+    return () => clearTimeout(t);
+  }, []);
 
   const handleAdminClose = () => {
     setAdminOpen(false);
@@ -51,7 +67,7 @@ export default function Home() {
 
   return (
     <>
-      {/* Envelope intro */}
+      {/* Envelope intro - siempre se renderiza arriba, se cierra al hacer click */}
       {!envelopeOpened && <EnvelopeIntro onOpen={() => setEnvelopeOpened(true)} />}
 
       {/* Photo background (only after envelope opened) */}
@@ -59,11 +75,13 @@ export default function Home() {
         <PhotoBackground photos={photos} sectionsCount={5} />
       )}
 
+      {/* Main content - siempre presente, solo opacity 0 hasta que se abra el sobre */}
       <motion.main
         initial={{ opacity: 0 }}
         animate={{ opacity: contentVisible ? 1 : 0 }}
         transition={{ duration: 1.5, ease: "easeInOut", delay: 0.3 }}
         className="min-h-screen relative z-10"
+        style={{ pointerEvents: contentVisible ? "auto" : "none" }}
       >
         {/* Hero */}
         <HeroSection />

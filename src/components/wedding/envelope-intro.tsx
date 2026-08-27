@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { weddingConfig } from "@/lib/wedding-config";
 import { Monogram } from "./decorative";
@@ -15,29 +15,46 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
 
   // Generar partículas fijas (evita hydration mismatch)
   const [particles] = useState(() =>
-    Array.from({ length: 12 }, (_, i) => ({
+    Array.from({ length: 10 }, (_, i) => ({
       id: i,
-      x: `${(i * 8.5 + 5) % 100}%`,
+      x: `${(i * 9 + 5) % 100}%`,
       delay: (i * 0.4) % 4,
       duration: 4 + (i % 3),
     }))
   );
 
+  // Bloquear scroll mientras el sobre está visible
   useEffect(() => {
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     };
   }, []);
 
-  const handleOpen = () => {
+  const handleOpen = useCallback(() => {
+    if (opening) return;
     setOpening(true);
+    // Restaurar el scroll inmediatamente para que la transición se vea bien
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
     // Esperar a que termine la animación del sobre (2.5s) + transición suave (1.5s)
     setTimeout(() => {
       setVisible(false);
       onOpen();
     }, 2500);
-  };
+  }, [opening, onOpen]);
+
+  // Seguridad: si por alguna razón el componente no se desmonta, ocultarlo después de 5s
+  useEffect(() => {
+    if (!opening) return;
+    const t = setTimeout(() => {
+      setVisible(false);
+      onOpen();
+    }, 5000);
+    return () => clearTimeout(t);
+  }, [opening, onOpen]);
 
   if (!visible) return null;
 
@@ -105,7 +122,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
           </motion.p>
 
           {/* Envelope */}
-          <div className="relative" style={{ perspective: "1500px" }}>
+          <div className="relative" style={{ perspective: "1200px" }}>
             <motion.div
               animate={
                 opening
@@ -132,25 +149,27 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
                   style={{ background: "transparent" }}
                 />
 
-                {/* Envelope seal (wax seal effect) */}
+                {/* Envelope seal (wax seal effect) - usando button normal con onTouchStart */}
                 {!opening && (
                   <motion.button
                     onClick={handleOpen}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 1, duration: 0.6, type: "spring" }}
-                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex flex-col items-center justify-center z-20 cursor-pointer group"
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex flex-col items-center justify-center z-20 cursor-pointer group active:scale-95 transition-transform"
                     style={{
                       background: "radial-gradient(circle at 35% 35%, #d4af37 0%, #b8860b 60%, #8b6914 100%)",
                       boxShadow: "0 8px 16px -4px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3)",
+                      WebkitTapHighlightColor: "transparent",
+                      touchAction: "manipulation",
                     }}
+                    type="button"
+                    aria-label="Abrir invitación"
                   >
-                    <span className="text-amber-50 font-serif italic text-lg sm:text-xl leading-none">
+                    <span className="text-amber-50 font-serif italic text-lg sm:text-xl leading-none pointer-events-none">
                       D&W
                     </span>
-                    <span className="text-amber-100/70 text-[8px] sm:text-[9px] uppercase tracking-widest mt-0.5">
+                    <span className="text-amber-100/70 text-[8px] sm:text-[9px] uppercase tracking-widest mt-0.5 pointer-events-none">
                       Abrir
                     </span>
                   </motion.button>
@@ -190,6 +209,8 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
                 className="absolute left-1/2 -translate-x-1/2 -top-px w-[280px] sm:w-[400px] h-[90px] sm:h-[130px] origin-top z-30"
                 style={{
                   transformStyle: "preserve-3d",
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
                 }}
                 animate={
                   opening
@@ -238,6 +259,21 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
             >
               Toca el sello para abrir
             </motion.p>
+          )}
+
+          {/* Botón de respaldo (texto) por si el sello no responde */}
+          {!opening && (
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 2.5, duration: 0.8 }}
+              onClick={handleOpen}
+              type="button"
+              className="block mx-auto mt-6 px-6 py-3 text-amber-200 text-xs uppercase tracking-widest border border-amber-400/40 rounded-full hover:bg-amber-400/10 active:scale-95 transition-all"
+              style={{ WebkitTapHighlightColor: "transparent", touchAction: "manipulation" }}
+            >
+              Abrir invitación
+            </motion.button>
           )}
         </motion.div>
       </motion.div>
