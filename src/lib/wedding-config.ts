@@ -52,7 +52,7 @@ export const weddingConfig = {
   additionalInfo: {
     dressCode: "Elegante casual",
     giftNote:
-      "Tu presencia es nuestro mejor regalo. Si deseas tener un detalle, agradecemos tu contribución a nuestra luna de miel.",
+      "Tu presencia es nuestro mejor regalo. Si deseas tener un detalle, agradecemos tu regalo con cariño.",
   },
 
   // 🔐 Contraseña del panel de administración (para subir fotos y ver confirmaciones)
