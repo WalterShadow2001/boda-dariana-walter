@@ -116,7 +116,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-center text-amber-300/70 tracking-[0.4em] uppercase text-[13px] sm:text-xs font-sans mb-6"
+            className="text-center text-amber-300/70 tracking-[0.4em] uppercase text-[16px] sm:text-base font-sans mb-6"
           >
             Tienes una invitación
           </motion.p>
@@ -167,11 +167,11 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
                 >
                   <div className="p-4 sm:p-6 h-full flex flex-col items-center justify-start text-center pt-2 sm:pt-3">
                     <Monogram initials="D&W" />
-                    <p className="mt-[110px] sm:mt-[150px] text-stone-800 font-display italic text-xs sm:text-sm leading-tight">
+                    <p className="mt-[110px] sm:mt-[150px] text-stone-800 font-display italic text-sm sm:text-base leading-tight">
                       {weddingConfig.bride.shortName} & {weddingConfig.groom.shortName}
                     </p>
                     <div className="mt-2 w-8 h-px bg-amber-600/40" />
-                    <p className="mt-2 text-[11px] sm:text-[13px] uppercase tracking-[0.3em] text-amber-700/60">
+                    <p className="mt-2 text-[14px] sm:text-base uppercase tracking-[0.3em] text-amber-700/60">
                       Invitación
                     </p>
                   </div>
@@ -242,7 +242,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
                   <span className="text-amber-50 font-serif italic text-lg sm:text-xl leading-none pointer-events-none">
                     D&W
                   </span>
-                  <span className="text-amber-100/70 text-[11px] sm:text-[12px] uppercase tracking-widest mt-0.5 pointer-events-none">
+                  <span className="text-amber-100/70 text-[14px] sm:text-[15px] uppercase tracking-widest mt-0.5 pointer-events-none">
                     Abrir
                   </span>
                 </motion.button>
@@ -256,7 +256,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.8, duration: 0.8 }}
-              className="text-center text-amber-300/50 text-[13px] sm:text-xs tracking-[0.3em] uppercase mt-8 font-sans"
+              className="text-center text-amber-300/50 text-[16px] sm:text-base tracking-[0.3em] uppercase mt-8 font-sans"
             >
               Toca el sello para abrir
             </motion.p>
@@ -270,7 +270,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
               transition={{ delay: 2.5, duration: 0.8 }}
               onClick={handleOpen}
               type="button"
-              className="block mx-auto mt-6 px-6 py-3 text-amber-200 text-xs uppercase tracking-widest border border-amber-400/40 rounded-full hover:bg-amber-400/10 active:scale-95 transition-all"
+              className="block mx-auto mt-6 px-6 py-3 text-amber-200 text-sm uppercase tracking-widest border border-amber-400/40 rounded-full hover:bg-amber-400/10 active:scale-95 transition-all"
               style={{ WebkitTapHighlightColor: "transparent", touchAction: "manipulation" }}
             >
               Abrir invitación

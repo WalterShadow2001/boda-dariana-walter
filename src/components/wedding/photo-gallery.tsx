@@ -87,7 +87,7 @@ export function PhotoGallery() {
                 />
                 {photo.caption && (
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2 sm:p-3">
-                    <p className="text-white text-xs sm:text-sm font-display italic">
+                    <p className="text-white text-sm sm:text-base font-display italic">
                       {photo.caption}
                     </p>
                   </div>
