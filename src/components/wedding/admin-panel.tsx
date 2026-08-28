@@ -247,8 +247,9 @@ export function AdminPanel({
     }
   };
 
+  const [deletingPhoto, setDeletingPhoto] = useState<Photo | null>(null);
+
   const handleDelete = async (id: string) => {
-    if (!confirm("¿Eliminar esta foto?")) return;
     try {
       const res = await fetch(`/api/photos?id=${id}`, {
         method: "DELETE",
@@ -256,6 +257,7 @@ export function AdminPanel({
       });
       if (!res.ok) throw new Error();
       toast({ title: "Foto eliminada" });
+      setDeletingPhoto(null);
       loadPhotos();
     } catch {
       toast({ title: "Error al eliminar", variant: "destructive" });
@@ -681,13 +683,15 @@ export function AdminPanel({
                         <ArrowDown className="w-3 h-3 sm:w-4 sm:h-4" />
                       </button>
                     </div>
-                    {/* Delete button */}
+                    {/* Delete button - SIEMPRE VISIBLE, más grande y rojo */}
                     <button
-                      onClick={() => handleDelete(photo.id)}
-                      className="absolute top-1 right-1 w-6 h-6 sm:w-7 sm:h-7 rounded bg-stone-900/80 hover:bg-stone-900 flex items-center justify-center opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
-                      title="Eliminar"
+                      onClick={() => setDeletingPhoto(photo)}
+                      className="absolute top-1 right-1 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-red-600 hover:bg-red-700 active:scale-95 flex items-center justify-center shadow-lg transition-all z-20"
+                      title="Eliminar foto"
+                      aria-label="Eliminar foto"
+                      type="button"
                     >
-                      <Trash2 className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                      <Trash2 className="w-4 h-4 text-white" />
                     </button>
                     {/* Order number */}
                     <div className="absolute bottom-1 right-1 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-amber-600/80 flex items-center justify-center text-white text-[10px] font-bold">
@@ -821,6 +825,70 @@ export function AdminPanel({
           </>
         )}
       </div>
+
+      {/* Diálogo de confirmación para eliminar foto */}
+      <AnimatePresence>
+        {deletingPhoto && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => setDeletingPhoto(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="text-center">
+                <div className="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4">
+                  <Trash2 className="w-7 h-7 text-red-600" />
+                </div>
+                <h3 className="font-serif text-xl text-stone-800 mb-2">¿Eliminar foto?</h3>
+                <p className="text-stone-700/70 text-sm mb-2 font-display">
+                  Esta acción no se puede deshacer.
+                </p>
+                {deletingPhoto.caption && (
+                  <p className="text-stone-600 text-xs italic mb-4 px-4">
+                    "{deletingPhoto.caption}"
+                  </p>
+                )}
+                {!deletingPhoto.caption && (
+                  <div className="mb-4" />
+                )}
+                {/* Preview de la foto */}
+                <div className="rounded-lg overflow-hidden mb-6 max-h-40 mx-auto border border-stone-200">
+                  <img
+                    src={deletingPhoto.url}
+                    alt={deletingPhoto.caption || "Foto a eliminar"}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setDeletingPhoto(null)}
+                    className="flex-1 px-4 py-3 rounded-full border border-stone-300 text-stone-700 text-sm font-medium uppercase tracking-wider hover:bg-stone-50 transition-colors"
+                    type="button"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={() => handleDelete(deletingPhoto.id)}
+                    className="flex-1 px-4 py-3 rounded-full bg-red-600 hover:bg-red-700 text-white text-sm font-medium uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+                    type="button"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    Eliminar
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
