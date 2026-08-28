@@ -49,7 +49,7 @@ export function HeroSection() {
       >
         <Monogram initials={`${bride.shortName[0]}&${groom.shortName[0]}`} />
 
-        <p className="mt-4 sm:mt-6 text-amber-700/70 tracking-[0.25em] sm:tracking-[0.4em] uppercase text-[10px] sm:text-sm font-sans">
+        <p className="mt-4 sm:mt-6 text-amber-700/70 tracking-[0.25em] sm:tracking-[0.4em] uppercase text-[13px] sm:text-sm font-sans">
           {tagline}
         </p>
 
@@ -100,7 +100,7 @@ export function HeroSection() {
       </motion.div>
 
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 animate-bounce">
-        <div className="text-amber-700/60 text-[10px] tracking-widest">▼</div>
+        <div className="text-amber-700/60 text-[13px] tracking-widest">▼</div>
       </div>
     </section>
   );
@@ -163,7 +163,7 @@ export function DetailsSection() {
                 <item.icon className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600" />
               </div>
               <div className="min-w-0 flex-1">
-                <div className="text-[10px] sm:text-xs uppercase tracking-widest text-amber-700/60">
+                <div className="text-[13px] sm:text-xs uppercase tracking-widest text-amber-700/60">
                   {item.label}
                 </div>
                 <div className="text-base sm:text-lg font-display text-stone-800 break-words">
@@ -364,7 +364,7 @@ export function RsvpSection() {
             className="glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-10 mt-6 sm:mt-8 space-y-5 sm:space-y-6"
           >
             <div>
-              <Label htmlFor="name" className="text-amber-700/80 tracking-widest uppercase text-[10px] sm:text-xs">
+              <Label htmlFor="name" className="text-amber-700/80 tracking-widest uppercase text-[13px] sm:text-xs">
                 Nombre completo
               </Label>
               <Input
@@ -377,7 +377,7 @@ export function RsvpSection() {
             </div>
 
             <div>
-              <Label className="text-amber-700/80 tracking-widest uppercase text-[10px] sm:text-xs">
+              <Label className="text-amber-700/80 tracking-widest uppercase text-[13px] sm:text-xs">
                 ¿Asistirás?
               </Label>
               <div className="grid grid-cols-2 gap-2 sm:gap-3 mt-2">
@@ -411,7 +411,7 @@ export function RsvpSection() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
               >
-                <Label htmlFor="guests" className="text-amber-700/80 tracking-widest uppercase text-[10px] sm:text-xs">
+                <Label htmlFor="guests" className="text-amber-700/80 tracking-widest uppercase text-[13px] sm:text-xs">
                   Número de invitados (incluyéndote)
                 </Label>
                 <div className="flex items-center gap-3 mt-2">
@@ -439,7 +439,7 @@ export function RsvpSection() {
             )}
 
             <div>
-              <Label htmlFor="msg" className="text-amber-700/80 tracking-widest uppercase text-[10px] sm:text-xs">
+              <Label htmlFor="msg" className="text-amber-700/80 tracking-widest uppercase text-[13px] sm:text-xs">
                 Mensaje para los novios (opcional)
               </Label>
               <Textarea
@@ -487,7 +487,7 @@ export function ClosingSection() {
         <p className="font-display text-xl sm:text-3xl text-stone-800/90 italic leading-relaxed px-2">
           {weddingConfig.closingText}
         </p>
-        <p className="mt-6 text-amber-700/70 tracking-[0.25em] sm:tracking-[0.3em] uppercase text-[10px] sm:text-xs font-sans">
+        <p className="mt-6 text-amber-700/70 tracking-[0.25em] sm:tracking-[0.3em] uppercase text-[13px] sm:text-xs font-sans">
           {weddingConfig.bride.shortName} & {weddingConfig.groom.shortName}
         </p>
         <DecorativeDivider className="my-6 sm:my-8" />

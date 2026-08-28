@@ -116,7 +116,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-center text-amber-300/70 tracking-[0.4em] uppercase text-[10px] sm:text-xs font-sans mb-6"
+            className="text-center text-amber-300/70 tracking-[0.4em] uppercase text-[13px] sm:text-xs font-sans mb-6"
           >
             Tienes una invitación
           </motion.p>
@@ -171,7 +171,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
                       {weddingConfig.bride.shortName} & {weddingConfig.groom.shortName}
                     </p>
                     <div className="mt-2 w-8 h-px bg-amber-600/40" />
-                    <p className="mt-2 text-[8px] sm:text-[10px] uppercase tracking-[0.3em] text-amber-700/60">
+                    <p className="mt-2 text-[11px] sm:text-[13px] uppercase tracking-[0.3em] text-amber-700/60">
                       Invitación
                     </p>
                   </div>
@@ -242,7 +242,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
                   <span className="text-amber-50 font-serif italic text-lg sm:text-xl leading-none pointer-events-none">
                     D&W
                   </span>
-                  <span className="text-amber-100/70 text-[8px] sm:text-[9px] uppercase tracking-widest mt-0.5 pointer-events-none">
+                  <span className="text-amber-100/70 text-[11px] sm:text-[12px] uppercase tracking-widest mt-0.5 pointer-events-none">
                     Abrir
                   </span>
                 </motion.button>
@@ -256,7 +256,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.8, duration: 0.8 }}
-              className="text-center text-amber-300/50 text-[10px] sm:text-xs tracking-[0.3em] uppercase mt-8 font-sans"
+              className="text-center text-amber-300/50 text-[13px] sm:text-xs tracking-[0.3em] uppercase mt-8 font-sans"
             >
               Toca el sello para abrir
             </motion.p>

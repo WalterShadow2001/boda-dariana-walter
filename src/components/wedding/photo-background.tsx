@@ -72,12 +72,12 @@ export function PhotoBackground({ photos, sectionsCount }: PhotoBackgroundProps)
         />
       </AnimatePresence>
 
-      {/* Gradient overlay for readability - 10% menos transparente (42%/32%/42%) */}
+      {/* Gradient overlay - menos transparente para mejor legibilidad (62%/52%/62%) */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(250, 248, 243, 0.42) 0%, rgba(250, 248, 243, 0.32) 50%, rgba(250, 248, 243, 0.42) 100%)",
+            "linear-gradient(180deg, rgba(250, 248, 243, 0.62) 0%, rgba(250, 248, 243, 0.52) 50%, rgba(250, 248, 243, 0.62) 100%)",
         }}
       />
 
