@@ -345,13 +345,13 @@ export function AdminPanel({
           <h2 className="text-2xl sm:text-3xl font-serif italic text-gold-gradient mb-2">
             Panel Privado
           </h2>
-          <p className="text-stone-700/70 font-display text-sm sm:text-lg italic mb-6 sm:mb-8 px-2">
+          <p className="text-stone-700/70 font-display text-lg sm:text-xl italic mb-6 sm:mb-8 px-2">
             Ingresa la contraseña para administrar
           </p>
 
           <div className="space-y-4 text-left">
             <div>
-              <Label htmlFor="pwd" className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-base">
+              <Label htmlFor="pwd" className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-xl">
                 Contraseña
               </Label>
               <Input
@@ -361,7 +361,7 @@ export function AdminPanel({
                 onChange={(e) => setPassword(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && verify()}
                 placeholder="••••••••"
-                className="mt-2 bg-white/80 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-base sm:text-lg tracking-widest h-11"
+                className="mt-2 bg-white/80 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-lg sm:text-xl tracking-widest h-11"
                 autoFocus
               />
             </div>
@@ -369,7 +369,7 @@ export function AdminPanel({
             <Button
               onClick={verify}
               disabled={verifying}
-              className="w-full bg-gradient-to-r from-amber-700 via-amber-500 to-amber-700 hover:from-amber-600 hover:via-amber-400 hover:to-amber-500 text-white font-medium tracking-widest uppercase rounded-full h-12 sm:py-6 text-sm sm:text-base"
+              className="w-full bg-gradient-to-r from-amber-700 via-amber-500 to-amber-700 hover:from-amber-600 hover:via-amber-400 hover:to-amber-500 text-white font-medium tracking-widest uppercase rounded-full h-12 sm:py-6 text-lg sm:text-xl"
             >
               {verifying ? (
                 <>
@@ -402,14 +402,14 @@ export function AdminPanel({
             <h1 className="text-xl sm:text-3xl md:text-4xl font-serif italic text-gold-gradient truncate">
               Panel de Administración
             </h1>
-            <p className="text-stone-700/60 font-display text-sm sm:text-base mt-1">
+            <p className="text-stone-700/60 font-display text-lg sm:text-xl mt-1">
               Contraseña verificada ✓
             </p>
           </div>
           <Button
             variant="outline"
             onClick={onClose}
-            className="border-amber-600/40 text-amber-700 hover:bg-amber-400/10 h-9 sm:h-10 px-2 sm:px-3 text-sm sm:text-base shrink-0"
+            className="border-amber-600/40 text-amber-700 hover:bg-amber-400/10 h-9 sm:h-10 px-2 sm:px-3 text-lg sm:text-xl shrink-0"
           >
             <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-2" />
             <span className="hidden sm:inline">Volver</span>
@@ -420,7 +420,7 @@ export function AdminPanel({
         <div className="flex gap-2 mb-6 sm:mb-8 border-b border-amber-600/20">
           <button
             onClick={() => setActiveTab("rsvps")}
-            className={`flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-3 font-display text-sm sm:text-base border-b-2 transition-all ${
+            className={`flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-3 font-display text-lg sm:text-xl border-b-2 transition-all ${
               activeTab === "rsvps"
                 ? "border-amber-600 text-amber-700"
                 : "border-transparent text-stone-700/60 hover:text-stone-800"
@@ -429,14 +429,14 @@ export function AdminPanel({
             <Users className="w-4 h-4 sm:w-5 sm:h-5" />
             <span>Confirmaciones</span>
             {rsvps.length > 0 && (
-              <span className="ml-1 bg-amber-600/20 text-amber-700 text-sm px-1.5 py-0.5 rounded-full">
+              <span className="ml-1 bg-amber-600/20 text-amber-700 text-lg px-1.5 py-0.5 rounded-full">
                 {rsvps.length}
               </span>
             )}
           </button>
           <button
             onClick={() => setActiveTab("photos")}
-            className={`flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-3 font-display text-sm sm:text-base border-b-2 transition-all ${
+            className={`flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-3 font-display text-lg sm:text-xl border-b-2 transition-all ${
               activeTab === "photos"
                 ? "border-amber-600 text-amber-700"
                 : "border-transparent text-stone-700/60 hover:text-stone-800"
@@ -445,14 +445,14 @@ export function AdminPanel({
             <ImageIcon className="w-4 h-4 sm:w-5 sm:h-5" />
             <span>Fotos</span>
             {photos.length > 0 && (
-              <span className="ml-1 bg-amber-600/20 text-amber-700 text-sm px-1.5 py-0.5 rounded-full">
+              <span className="ml-1 bg-amber-600/20 text-amber-700 text-lg px-1.5 py-0.5 rounded-full">
                 {photos.length}
               </span>
             )}
           </button>
           <button
             onClick={() => setActiveTab("settings")}
-            className={`flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-3 font-display text-sm sm:text-base border-b-2 transition-all ${
+            className={`flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-3 font-display text-lg sm:text-xl border-b-2 transition-all ${
               activeTab === "settings"
                 ? "border-amber-600 text-amber-700"
                 : "border-transparent text-stone-700/60 hover:text-stone-800"
@@ -471,21 +471,21 @@ export function AdminPanel({
               <div className="glass-card rounded-lg sm:rounded-2xl p-2.5 sm:p-5 text-center border-amber-600/30">
                 <Check className="w-5 h-5 sm:w-7 sm:h-7 text-amber-700 mx-auto mb-1 sm:mb-2" />
                 <div className="text-xl sm:text-4xl font-serif text-amber-700 leading-none">{attending.length}</div>
-                <div className="text-[15px] sm:text-base uppercase tracking-widest text-stone-700/60 mt-1">
+                <div className="text-[15px] sm:text-xl uppercase tracking-widest text-stone-700/60 mt-1">
                   Confirmados
                 </div>
               </div>
               <div className="glass-card rounded-lg sm:rounded-2xl p-2.5 sm:p-5 text-center border-amber-500/20">
                 <Users className="w-5 h-5 sm:w-7 sm:h-7 text-amber-700 mx-auto mb-1 sm:mb-2" />
                 <div className="text-xl sm:text-4xl font-serif text-amber-600 leading-none">{totalGuests}</div>
-                <div className="text-[15px] sm:text-base uppercase tracking-widest text-stone-700/60 mt-1">
+                <div className="text-[15px] sm:text-xl uppercase tracking-widest text-stone-700/60 mt-1">
                   Invitados
                 </div>
               </div>
               <div className="glass-card rounded-lg sm:rounded-2xl p-2.5 sm:p-5 text-center border-stone-700/30">
                 <X className="w-5 h-5 sm:w-7 sm:h-7 text-stone-800 mx-auto mb-1 sm:mb-2" />
                 <div className="text-xl sm:text-4xl font-serif text-stone-800 leading-none">{notAttending.length}</div>
-                <div className="text-[15px] sm:text-base uppercase tracking-widest text-stone-700/60 mt-1">
+                <div className="text-[15px] sm:text-xl uppercase tracking-widest text-stone-700/60 mt-1">
                   No asistirán
                 </div>
               </div>
@@ -497,7 +497,7 @@ export function AdminPanel({
                 <Button
                   variant="outline"
                   onClick={exportCSV}
-                  className="border-amber-600/40 text-amber-700 hover:bg-amber-400/10 h-9 sm:h-10 text-sm sm:text-base"
+                  className="border-amber-600/40 text-amber-700 hover:bg-amber-400/10 h-9 sm:h-10 text-lg sm:text-xl"
                 >
                   <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" />
                   Exportar CSV
@@ -514,13 +514,13 @@ export function AdminPanel({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 {/* Attending */}
                 <div>
-                  <h2 className="text-base sm:text-xl font-serif text-amber-700 mb-3 sm:mb-4 flex items-center gap-2">
+                  <h2 className="text-lg sm:text-xl font-serif text-amber-700 mb-3 sm:mb-4 flex items-center gap-2">
                     <Check className="w-4 h-4 sm:w-5 sm:h-5" />
                     Confirmados ({attending.length})
                   </h2>
                   <div className="space-y-2 sm:space-y-3 max-h-[60vh] overflow-y-auto pr-1 sm:pr-2">
                     {attending.length === 0 ? (
-                      <p className="text-stone-700/40 text-sm italic">Aún nadie ha confirmado</p>
+                      <p className="text-stone-700/40 text-lg italic">Aún nadie ha confirmado</p>
                     ) : (
                       attending.map((r) => (
                         <div
@@ -529,17 +529,17 @@ export function AdminPanel({
                         >
                           <div className="flex items-start justify-between gap-2">
                             <div className="min-w-0">
-                              <div className="font-display text-sm sm:text-lg text-stone-800 truncate">{r.name}</div>
-                              <div className="text-sm sm:text-base text-amber-700/80">
+                              <div className="font-display text-lg sm:text-xl text-stone-800 truncate">{r.name}</div>
+                              <div className="text-lg sm:text-xl text-amber-700/80">
                                 {r.guests} {r.guests === 1 ? "invitado" : "invitados"}
                               </div>
                             </div>
-                            <div className="text-[16px] sm:text-base text-stone-700/40 shrink-0">
+                            <div className="text-[16px] sm:text-xl text-stone-700/40 shrink-0">
                               {new Date(r.createdAt).toLocaleDateString("es-MX")}
                             </div>
                           </div>
                           {r.message && (
-                            <p className="mt-2 text-sm sm:text-base text-stone-700/70 italic font-display border-l-2 border-amber-600/30 pl-2 sm:pl-3 break-words">
+                            <p className="mt-2 text-lg sm:text-xl text-stone-700/70 italic font-display border-l-2 border-amber-600/30 pl-2 sm:pl-3 break-words">
                               {r.message}
                             </p>
                           )}
@@ -551,13 +551,13 @@ export function AdminPanel({
 
                 {/* Not attending */}
                 <div>
-                  <h2 className="text-base sm:text-xl font-serif text-stone-800 mb-3 sm:mb-4 flex items-center gap-2">
+                  <h2 className="text-lg sm:text-xl font-serif text-stone-800 mb-3 sm:mb-4 flex items-center gap-2">
                     <X className="w-4 h-4 sm:w-5 sm:h-5" />
                     No asistirán ({notAttending.length})
                   </h2>
                   <div className="space-y-2 sm:space-y-3 max-h-[60vh] overflow-y-auto pr-1 sm:pr-2">
                     {notAttending.length === 0 ? (
-                      <p className="text-stone-700/40 text-sm italic">Nadie ha declinado aún</p>
+                      <p className="text-stone-700/40 text-lg italic">Nadie ha declinado aún</p>
                     ) : (
                       notAttending.map((r) => (
                         <div
@@ -565,13 +565,13 @@ export function AdminPanel({
                           className="glass-card rounded-lg sm:rounded-xl p-3 sm:p-4 border-stone-700/30"
                         >
                           <div className="flex items-start justify-between gap-2">
-                            <div className="font-display text-sm sm:text-lg text-stone-800 truncate min-w-0 flex-1">{r.name}</div>
-                            <div className="text-[16px] sm:text-base text-stone-700/40 shrink-0">
+                            <div className="font-display text-lg sm:text-xl text-stone-800 truncate min-w-0 flex-1">{r.name}</div>
+                            <div className="text-[16px] sm:text-xl text-stone-700/40 shrink-0">
                               {new Date(r.createdAt).toLocaleDateString("es-MX")}
                             </div>
                           </div>
                           {r.message && (
-                            <p className="mt-2 text-sm sm:text-base text-stone-700/70 italic font-display border-l-2 border-amber-600/30 pl-2 sm:pl-3 break-words">
+                            <p className="mt-2 text-lg sm:text-xl text-stone-700/70 italic font-display border-l-2 border-amber-600/30 pl-2 sm:pl-3 break-words">
                               {r.message}
                             </p>
                           )}
@@ -598,18 +598,18 @@ export function AdminPanel({
                   type="file"
                   accept="image/*"
                   onChange={(e) => setFile(e.target.files?.[0] || null)}
-                  className="bg-white/70 border-amber-600/30 text-stone-800 file:bg-amber-500/20 file:text-amber-700 file:border-0 file:rounded file:px-2 file:py-1 file:mr-2 file:font-sans text-sm sm:text-base h-10 sm:h-11"
+                  className="bg-white/70 border-amber-600/30 text-stone-800 file:bg-amber-500/20 file:text-amber-700 file:border-0 file:rounded file:px-2 file:py-1 file:mr-2 file:font-sans text-lg sm:text-xl h-10 sm:h-11"
                 />
                 <Input
                   value={caption}
                   onChange={(e) => setCaption(e.target.value)}
                   placeholder="Descripción (opcional)"
-                  className="bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-sm sm:text-base h-10 sm:h-11"
+                  className="bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-lg sm:text-xl h-10 sm:h-11"
                 />
                 <Button
                   onClick={handleUpload}
                   disabled={uploading || !file}
-                  className="w-full bg-gradient-to-r from-amber-700 to-amber-800 hover:from-amber-600 hover:to-amber-700 text-white font-medium tracking-wider uppercase rounded-full h-11 text-sm sm:text-base"
+                  className="w-full bg-gradient-to-r from-amber-700 to-amber-800 hover:from-amber-600 hover:to-amber-700 text-white font-medium tracking-wider uppercase rounded-full h-11 text-lg sm:text-xl"
                 >
                   {uploading ? (
                     <>
@@ -623,7 +623,7 @@ export function AdminPanel({
                     </>
                   )}
                 </Button>
-                <p className="text-[16px] sm:text-base text-stone-700/50 text-center">
+                <p className="text-[16px] sm:text-xl text-stone-700/50 text-center">
                   Las imágenes se comprimen automáticamente (máx 1600px de ancho)
                 </p>
               </div>
@@ -637,10 +637,10 @@ export function AdminPanel({
             ) : photos.length === 0 ? (
               <div className="text-center py-12 glass-card rounded-xl sm:rounded-2xl">
                 <ImageIcon className="w-10 h-10 sm:w-12 sm:h-12 text-amber-700/30 mx-auto mb-3" />
-                <p className="text-stone-700/50 font-display text-base sm:text-lg italic px-2">
+                <p className="text-stone-700/50 font-display text-lg sm:text-xl italic px-2">
                   Aún no hay fotos
                 </p>
-                <p className="text-stone-700/40 text-sm sm:text-base mt-2">
+                <p className="text-stone-700/40 text-lg sm:text-xl mt-2">
                   Sube la primera foto desde el panel de arriba
                 </p>
               </div>
@@ -659,7 +659,7 @@ export function AdminPanel({
                     />
                     {photo.caption && (
                       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2">
-                        <p className="text-white text-[16px] sm:text-base font-display italic line-clamp-2">
+                        <p className="text-white text-[16px] sm:text-xl font-display italic line-clamp-2">
                           {photo.caption}
                         </p>
                       </div>
@@ -711,7 +711,7 @@ export function AdminPanel({
                 <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-amber-700" />
                 Configuración del evento
               </h3>
-              <p className="text-sm sm:text-base text-stone-700/60 mb-4 sm:mb-6 font-display italic">
+              <p className="text-lg sm:text-xl text-stone-700/60 mb-4 sm:mb-6 font-display italic">
                 Cambia la fecha, hora y lugar de la cena. Los cambios se reflejan inmediatamente en la invitación.
               </p>
 
@@ -723,7 +723,7 @@ export function AdminPanel({
                 <div className="space-y-4 sm:space-y-5">
                   {/* Fecha y hora */}
                   <div>
-                    <Label className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-base flex items-center gap-1.5">
+                    <Label className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-xl flex items-center gap-1.5">
                       <Calendar className="w-3 h-3" />
                       Fecha y hora de la cena
                     </Label>
@@ -737,16 +737,16 @@ export function AdminPanel({
                         const isoDate = new Date(value).toISOString();
                         setSettingsForm({ ...settingsForm, weddingDate: isoDate });
                       }}
-                      className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 font-display text-sm sm:text-base h-10 sm:h-11"
+                      className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 font-display text-lg sm:text-xl h-10 sm:h-11"
                     />
-                    <p className="text-[16px] sm:text-base text-stone-700/50 mt-1">
+                    <p className="text-[16px] sm:text-xl text-stone-700/50 mt-1">
                       Formato: AAAA-MM-DD HH:MM (24 hrs)
                     </p>
                   </div>
 
                   {/* Nombre del lugar */}
                   <div>
-                    <Label className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-base flex items-center gap-1.5">
+                    <Label className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-xl flex items-center gap-1.5">
                       <MapPin className="w-3 h-3" />
                       Nombre del lugar
                     </Label>
@@ -754,13 +754,13 @@ export function AdminPanel({
                       value={settingsForm.venueName}
                       onChange={(e) => setSettingsForm({ ...settingsForm, venueName: e.target.value })}
                       placeholder="Ej: Restaurante San Ángel"
-                      className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-sm sm:text-base h-10 sm:h-11"
+                      className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-lg sm:text-xl h-10 sm:h-11"
                     />
                   </div>
 
                   {/* Dirección */}
                   <div>
-                    <Label className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-base flex items-center gap-1.5">
+                    <Label className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-xl flex items-center gap-1.5">
                       <MapPin className="w-3 h-3" />
                       Dirección
                     </Label>
@@ -768,13 +768,13 @@ export function AdminPanel({
                       value={settingsForm.venueAddress}
                       onChange={(e) => setSettingsForm({ ...settingsForm, venueAddress: e.target.value })}
                       placeholder="Calle, número, colonia, ciudad"
-                      className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-sm sm:text-base h-10 sm:h-11"
+                      className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-lg sm:text-xl h-10 sm:h-11"
                     />
                   </div>
 
                   {/* URL de Google Maps */}
                   <div>
-                    <Label className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-base flex items-center gap-1.5">
+                    <Label className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-xl flex items-center gap-1.5">
                       <MapPin className="w-3 h-3" />
                       Enlace de Google Maps
                     </Label>
@@ -782,9 +782,9 @@ export function AdminPanel({
                       value={settingsForm.venueMapsUrl}
                       onChange={(e) => setSettingsForm({ ...settingsForm, venueMapsUrl: e.target.value })}
                       placeholder="https://www.google.com/maps/place/..."
-                      className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-mono text-sm sm:text-base h-10 sm:h-11"
+                      className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-mono text-lg sm:text-xl h-10 sm:h-11"
                     />
-                    <p className="text-[16px] sm:text-base text-stone-700/50 mt-1">
+                    <p className="text-[16px] sm:text-xl text-stone-700/50 mt-1">
                       Tip: Busca el lugar en Google Maps, click en "Compartir" → "Copiar enlace" y pégalo aquí. Las coordenadas se detectan automáticamente del enlace.
                     </p>
                   </div>
@@ -805,7 +805,7 @@ export function AdminPanel({
                   <Button
                     onClick={saveSettings}
                     disabled={savingSettings}
-                    className="w-full bg-gradient-to-r from-amber-700 to-amber-800 hover:from-amber-600 hover:to-amber-700 text-white font-medium tracking-wider uppercase rounded-full h-11 text-sm sm:text-base"
+                    className="w-full bg-gradient-to-r from-amber-700 to-amber-800 hover:from-amber-600 hover:to-amber-700 text-white font-medium tracking-wider uppercase rounded-full h-11 text-lg sm:text-xl"
                   >
                     {savingSettings ? (
                       <>
@@ -848,11 +848,11 @@ export function AdminPanel({
                   <Trash2 className="w-7 h-7 text-red-600" />
                 </div>
                 <h3 className="font-serif text-xl text-stone-800 mb-2">¿Eliminar foto?</h3>
-                <p className="text-stone-700/70 text-sm mb-2 font-display">
+                <p className="text-stone-700/70 text-lg mb-2 font-display">
                   Esta acción no se puede deshacer.
                 </p>
                 {deletingPhoto.caption && (
-                  <p className="text-stone-600 text-sm italic mb-4 px-4">
+                  <p className="text-stone-600 text-lg italic mb-4 px-4">
                     "{deletingPhoto.caption}"
                   </p>
                 )}
@@ -870,14 +870,14 @@ export function AdminPanel({
                 <div className="flex gap-3">
                   <button
                     onClick={() => setDeletingPhoto(null)}
-                    className="flex-1 px-4 py-3 rounded-full border border-stone-300 text-stone-700 text-sm font-medium uppercase tracking-wider hover:bg-stone-50 transition-colors"
+                    className="flex-1 px-4 py-3 rounded-full border border-stone-300 text-stone-700 text-lg font-medium uppercase tracking-wider hover:bg-stone-50 transition-colors"
                     type="button"
                   >
                     Cancelar
                   </button>
                   <button
                     onClick={() => handleDelete(deletingPhoto.id)}
-                    className="flex-1 px-4 py-3 rounded-full bg-red-600 hover:bg-red-700 text-white text-sm font-medium uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+                    className="flex-1 px-4 py-3 rounded-full bg-red-600 hover:bg-red-700 text-white text-lg font-medium uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
                     type="button"
                   >
                     <Trash2 className="w-4 h-4" />

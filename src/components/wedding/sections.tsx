@@ -49,7 +49,7 @@ export function HeroSection() {
       >
         <Monogram initials={`${bride.shortName[0]}&${groom.shortName[0]}`} />
 
-        <p className="mt-4 sm:mt-6 text-amber-700/70 tracking-[0.25em] sm:tracking-[0.4em] uppercase text-[16px] sm:text-base font-sans">
+        <p className="mt-4 sm:mt-6 text-amber-700/70 tracking-[0.25em] sm:tracking-[0.4em] uppercase text-[16px] sm:text-xl font-sans">
           {tagline}
         </p>
 
@@ -77,13 +77,13 @@ export function HeroSection() {
           </motion.h1>
         </div>
 
-        <p className="text-amber-700/80 text-[14px] sm:text-base tracking-[0.15em] sm:tracking-widest uppercase font-sans px-2">
+        <p className="text-amber-700/80 text-[14px] sm:text-xl tracking-[0.15em] sm:tracking-widest uppercase font-sans px-2">
           {loaded ? `${formatDateLong(weddingDate)} · ${formatTime(weddingDate)} hrs` : "···"}
         </p>
 
         <DecorativeDivider className="mt-8 sm:mt-12" />
 
-        <p className="max-w-md text-stone-800/80 text-sm sm:text-lg font-display leading-relaxed italic px-1">
+        <p className="max-w-md text-stone-800/80 text-lg sm:text-xl font-display leading-relaxed italic px-1">
           {weddingConfig.invitationText}
         </p>
 
@@ -93,7 +93,7 @@ export function HeroSection() {
 
         <a
           href="#rsvp"
-          className="mt-8 sm:mt-12 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-amber-700 via-amber-500 to-amber-700 px-6 sm:px-8 py-3 text-sm sm:text-base font-medium uppercase tracking-widest text-white hover:scale-105 transition-transform shadow-lg shadow-amber-700/20"
+          className="mt-8 sm:mt-12 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-amber-700 via-amber-500 to-amber-700 px-6 sm:px-8 py-3 text-lg sm:text-xl font-medium uppercase tracking-widest text-white hover:scale-105 transition-transform shadow-lg shadow-amber-700/20"
         >
           {weddingConfig.ctaText}
         </a>
@@ -163,10 +163,10 @@ export function DetailsSection() {
                 <item.icon className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600" />
               </div>
               <div className="min-w-0 flex-1">
-                <div className="text-[16px] sm:text-base uppercase tracking-widest text-amber-700/60">
+                <div className="text-[16px] sm:text-xl uppercase tracking-widest text-amber-700/60">
                   {item.label}
                 </div>
-                <div className="text-base sm:text-lg font-display text-stone-800 break-words">
+                <div className="text-lg sm:text-xl font-display text-stone-800 break-words">
                   {item.value}
                 </div>
               </div>
@@ -185,7 +185,7 @@ export function DetailsSection() {
             <Gift className="shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-amber-600 mt-1" />
             <div>
               <h3 className="font-serif text-lg sm:text-xl text-stone-700 mb-2">Un detalle opcional</h3>
-              <p className="text-stone-800/70 font-display text-sm sm:text-lg leading-relaxed italic">
+              <p className="text-stone-800/70 font-display text-lg sm:text-xl leading-relaxed italic">
                 {additionalInfo.giftNote}
               </p>
             </div>
@@ -221,7 +221,7 @@ export function LocationSection() {
               {loaded ? settings.venueName : "···"}
             </h3>
             {loaded && settings.venueAddress && settings.venueAddress.trim() && (
-              <p className="text-stone-800/70 font-display text-sm sm:text-lg mt-2 max-w-md mx-auto italic px-2">
+              <p className="text-stone-800/70 font-display text-lg sm:text-xl mt-2 max-w-md mx-auto italic px-2">
                 {settings.venueAddress}
               </p>
             )}
@@ -315,7 +315,7 @@ export function RsvpSection() {
             Confirmación
           </h2>
           <DecorativeDivider />
-          <p className="text-stone-800/70 font-display text-sm sm:text-lg italic mt-4 px-2">
+          <p className="text-stone-800/70 font-display text-lg sm:text-xl italic mt-4 px-2">
             Por favor confirma antes del 1 de septiembre
           </p>
         </motion.div>
@@ -336,7 +336,7 @@ export function RsvpSection() {
             <h3 className="text-xl sm:text-2xl font-serif text-stone-800 mb-2 px-2">
               {done === "yes" ? "¡Nos emociona compartir esta noche contigo!" : "Gracias por avisarnos"}
             </h3>
-            <p className="text-stone-800/70 font-display text-base sm:text-lg italic px-2">
+            <p className="text-stone-800/70 font-display text-lg sm:text-xl italic px-2">
               {done === "yes"
                 ? `Hemos registrado tu confirmación, ${name.split(" ")[0]}.`
                 : "Te llevaremos en nuestros pensamientos."}
@@ -364,7 +364,7 @@ export function RsvpSection() {
             className="glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-10 mt-6 sm:mt-8 space-y-5 sm:space-y-6"
           >
             <div>
-              <Label htmlFor="name" className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-base">
+              <Label htmlFor="name" className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-xl">
                 Nombre completo
               </Label>
               <Input
@@ -372,19 +372,19 @@ export function RsvpSection() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Tu nombre y apellido"
-                className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-base sm:text-lg h-11"
+                className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-lg sm:text-xl h-11"
               />
             </div>
 
             <div>
-              <Label className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-base">
+              <Label className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-xl">
                 ¿Asistirás?
               </Label>
               <div className="grid grid-cols-2 gap-2 sm:gap-3 mt-2">
                 <button
                   type="button"
                   onClick={() => setAttending(true)}
-                  className={`rounded-lg sm:rounded-xl px-2 py-3 font-display text-sm sm:text-lg border transition-all ${
+                  className={`rounded-lg sm:rounded-xl px-2 py-3 font-display text-lg sm:text-xl border transition-all ${
                     attending === true
                       ? "bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-500 shadow-lg shadow-amber-700/30"
                       : "bg-white/70 border-amber-600/30 text-stone-800 hover:border-amber-600/60"
@@ -395,7 +395,7 @@ export function RsvpSection() {
                 <button
                   type="button"
                   onClick={() => setAttending(false)}
-                  className={`rounded-lg sm:rounded-xl px-2 py-3 font-display text-sm sm:text-lg border transition-all ${
+                  className={`rounded-lg sm:rounded-xl px-2 py-3 font-display text-lg sm:text-xl border transition-all ${
                     attending === false
                       ? "bg-gradient-to-r from-amber-700 to-amber-800 text-white border-amber-500 shadow-lg shadow-amber-700/30"
                       : "bg-white/70 border-amber-600/30 text-stone-800 hover:border-amber-600/60"
@@ -411,7 +411,7 @@ export function RsvpSection() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
               >
-                <Label htmlFor="guests" className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-base">
+                <Label htmlFor="guests" className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-xl">
                   Número de invitados (incluyéndote)
                 </Label>
                 <div className="flex items-center gap-3 mt-2">
@@ -439,7 +439,7 @@ export function RsvpSection() {
             )}
 
             <div>
-              <Label htmlFor="msg" className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-base">
+              <Label htmlFor="msg" className="text-amber-700/80 tracking-widest uppercase text-[16px] sm:text-xl">
                 Mensaje para los novios (opcional)
               </Label>
               <Textarea
@@ -447,14 +447,14 @@ export function RsvpSection() {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Escribe tus buenos deseos..."
-                className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-sm sm:text-base min-h-[90px]"
+                className="mt-2 bg-white/70 border-amber-600/30 text-stone-800 placeholder:text-stone-400 font-display text-lg sm:text-xl min-h-[90px]"
               />
             </div>
 
             <Button
               onClick={submit}
               disabled={loading}
-              className="w-full bg-gradient-to-r from-amber-700 via-amber-500 to-amber-700 hover:from-amber-600 hover:via-amber-400 hover:to-amber-500 text-white font-medium tracking-widest uppercase rounded-full h-12 sm:h-14 text-sm sm:text-base shadow-lg shadow-amber-700/20"
+              className="w-full bg-gradient-to-r from-amber-700 via-amber-500 to-amber-700 hover:from-amber-600 hover:via-amber-400 hover:to-amber-500 text-white font-medium tracking-widest uppercase rounded-full h-12 sm:h-14 text-lg sm:text-xl shadow-lg shadow-amber-700/20"
             >
               {loading ? (
                 <>
@@ -487,7 +487,7 @@ export function ClosingSection() {
         <p className="font-display text-xl sm:text-3xl text-stone-800/90 italic leading-relaxed px-2">
           {weddingConfig.closingText}
         </p>
-        <p className="mt-6 text-amber-700/70 tracking-[0.25em] sm:tracking-[0.3em] uppercase text-[16px] sm:text-base font-sans">
+        <p className="mt-6 text-amber-700/70 tracking-[0.25em] sm:tracking-[0.3em] uppercase text-[16px] sm:text-xl font-sans">
           {weddingConfig.bride.shortName} & {weddingConfig.groom.shortName}
         </p>
         <DecorativeDivider className="my-6 sm:my-8" />
