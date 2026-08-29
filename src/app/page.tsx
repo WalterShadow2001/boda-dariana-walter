@@ -85,14 +85,14 @@ export default function Home() {
         {/* Hero */}
         <HeroSection />
 
+        {/* RSVP form - antes de los detalles de la cena */}
+        <RsvpSection />
+
         {/* Details */}
         <DetailsSection />
 
         {/* Location with Google Maps */}
         <LocationSection />
-
-        {/* RSVP form */}
-        <RsvpSection />
 
         {/* Closing */}
         <ClosingSection />
