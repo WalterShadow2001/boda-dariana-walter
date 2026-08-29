@@ -47,7 +47,7 @@ export function Countdown({ targetDate }: { targetDate: string }) {
           <div className="text-xl sm:text-4xl md:text-5xl font-serif text-amber-600 tabular-nums leading-none">
             {String(it.value).padStart(2, "0")}
           </div>
-          <div className="text-[14px] sm:text-xl uppercase tracking-[0.15em] sm:tracking-[0.2em] text-stone-700/60 mt-1 sm:mt-2">
+          <div className="text-[14px] sm:text-2xl uppercase tracking-[0.15em] sm:tracking-[0.2em] text-stone-700/60 font-medium mt-1 sm:mt-2">
             {it.label}
           </div>
         </div>

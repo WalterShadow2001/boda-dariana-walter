@@ -51,7 +51,7 @@ export function PhotoGallery() {
             <ImageIcon className="w-4 h-4 sm:w-5 sm:h-5 text-amber-700" />
             <span className="h-px w-10 sm:w-16 bg-gradient-to-l from-transparent to-amber-500/60" />
           </div>
-          <p className="text-stone-800/70 font-display text-lg sm:text-xl italic px-2">
+          <p className="text-stone-800/70 font-display font-semibold text-xl sm:text-2xl italic px-2">
             Compartimos con ustedes nuestros momentos más preciados
           </p>
         </motion.div>
@@ -63,7 +63,7 @@ export function PhotoGallery() {
         ) : photos.length === 0 ? (
           <div className="text-center py-12 glass-card rounded-xl sm:rounded-2xl">
             <ImageIcon className="w-10 h-10 sm:w-12 sm:h-12 text-amber-700/30 mx-auto mb-3" />
-            <p className="text-stone-700/50 font-display text-lg sm:text-xl italic px-2">
+            <p className="text-stone-700/50 font-display text-xl sm:text-2xl italic px-2">
               Aún no hay fotos compartidas
             </p>
           </div>
@@ -87,7 +87,7 @@ export function PhotoGallery() {
                 />
                 {photo.caption && (
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2 sm:p-3">
-                    <p className="text-white text-lg sm:text-xl font-display italic">
+                    <p className="text-white text-xl sm:text-2xl font-display italic">
                       {photo.caption}
                     </p>
                   </div>
@@ -115,7 +115,7 @@ export function PhotoGallery() {
               className="max-w-full max-h-[80vh] sm:max-h-[85vh] rounded-lg border border-amber-600/30"
             />
             {selected.caption && (
-              <p className="text-center text-white mt-4 font-display italic text-lg sm:text-xl px-2">
+              <p className="text-center text-white mt-4 font-display italic text-xl sm:text-2xl px-2">
                 {selected.caption}
               </p>
             )}
